@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Популярные"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="15dp">
+
+                <ImageView
+                    android:id="@+id/popularGame1"
+                    android:layout_width="100dp"
+                    android:layout_height="127dp"
+                    android:src="@drawable/forza1"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+
+                <ImageView
+                    android:id="@+id/popularGame2"
+                    android:layout_width="100dp"
+                    android:layout_height="127dp"
+                    android:src="@drawable/mafia1de"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+
+                <ImageView
+                    android:id="@+id/popularGame3"
+                    android:layout_width="100dp"
+                    android:layout_height="127dp"
+                    android:src="@drawable/avowed"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Последние релизы"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="16dp"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingEnd="15dp">
+
+                <ImageView
+                    android:id="@+id/latestRelease1"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/avowed"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+
+                <ImageView
+                    android:id="@+id/latestRelease2"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/hellblade2"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+
+                <ImageView
+                    android:id="@+id/latestRelease3"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:src="@drawable/blackops6"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:layout_marginEnd="15dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <Button
+            android:id="@+id/fullCatalogButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Полный каталог"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:backgroundTint="@color/orange"
+            android:gravity="center"
+            android:paddingVertical="12dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"/>
+
+    </LinearLayout>
+</ScrollView>

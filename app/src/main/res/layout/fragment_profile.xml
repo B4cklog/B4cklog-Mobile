@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/black"
+    android:padding="16dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Верхушка профиля: аватарка и ник -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="24dp">
+
+                <ImageView
+                    android:id="@+id/userAvatar"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/avatar"
+                    android:scaleType="centerCrop"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/circle_background"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rarmash"
+                    android:textSize="24sp"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/want_to_play"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/plannedGame1"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/forza1"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+
+                    <ImageView
+                        android:id="@+id/plannedGame2"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/forza2"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+
+                    <ImageView
+                        android:id="@+id/plannedGame3"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/forza3"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/playing"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/playingGame1"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/forza4"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+
+                    <ImageView
+                        android:id="@+id/playingGame2"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/forza5"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/completed"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/completedGame1"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/hellblade2"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wishlist"
+                android:textSize="20sp"
+                android:textColor="@android:color/white"
+                android:layout_marginBottom="16dp"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingEnd="15dp">
+
+                    <ImageView
+                        android:id="@+id/wishlistGame1"
+                        android:layout_width="100dp"
+                        android:layout_height="127dp"
+                        android:src="@drawable/avowed"
+                        android:scaleType="centerCrop"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginEnd="15dp"/>
+                </LinearLayout>
+            </HorizontalScrollView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_settings"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        app:backgroundTint="@color/orange"
+        app:elevation="6dp"
+        app:rippleColor="@color/white"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
