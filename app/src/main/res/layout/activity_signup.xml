@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black">
+    android:background="?attr/android:colorBackground">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/signup_label"
-            android:textColor="@color/white"
+            android:textColor="?attr/colorOnBackground"
             android:textStyle="bold"
             android:textSize="28sp"/>
 
@@ -32,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
             android:hint="@string/email"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnBackground"
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -47,8 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/username"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnBackground"
             android:inputType="text"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
@@ -62,8 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/password"
-            android:textColor="@color/white"
-            android:textColorHint="@color/white"
+            android:textColor="?attr/colorOnBackground"
+            android:textColorHint="?attr/colorOnBackground"
             android:inputType="textPassword"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"

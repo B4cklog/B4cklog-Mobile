@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.rarmash.b4cklog.R
 
 class WelcomeActivity : AppCompatActivity() {
@@ -11,6 +12,14 @@ class WelcomeActivity : AppCompatActivity() {
     lateinit var signup_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", true)
+
+        AppCompatDelegate.setDefaultNightMode(
+            if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
+            else AppCompatDelegate.MODE_NIGHT_NO
+        )
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 

@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.B4cklog2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <!-- Базовая светлая тема -->
+    <style name="Theme.B4cklog2" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Явно задаём светлые цвета -->
+        <item name="colorPrimary">@color/light_primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:statusBarColor">@color/light_primary</item>
 
-    <style name="Theme.B4cklog2" parent="Base.Theme.B4cklog2" />
+        <item name="android:fitsSystemWindows">true</item>
+    </style>
 </resources>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
+    android:background="?attr/android:colorBackground"
     android:padding="16dp">
 
     <ScrollView
@@ -15,7 +15,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Верхушка профиля: аватарка и ник -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text="Rarmash"
                     android:textSize="24sp"
-                    android:textColor="@android:color/white"
+                    android:textColor="?attr/colorOnBackground"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -48,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/want_to_play"
                 android:textSize="20sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="16dp"/>
 
             <HorizontalScrollView
@@ -105,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/playing"
                 android:textSize="20sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="16dp"/>
 
             <HorizontalScrollView
@@ -150,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/completed"
                 android:textSize="20sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="16dp"/>
 
             <HorizontalScrollView
@@ -183,7 +182,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/wishlist"
                 android:textSize="20sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="16dp"/>
 
             <HorizontalScrollView
@@ -223,6 +222,7 @@
         android:layout_margin="16dp"
         app:backgroundTint="@color/orange"
         app:elevation="6dp"
-        app:rippleColor="@color/white"/>
+        android:textColor="@color/black"
+        app:rippleColor="@color/black"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

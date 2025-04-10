@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
+    android:background="?attr/android:colorBackground"
     android:padding="16dp">
 
     <LinearLayout
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:text="Опубликован свежий трейлер Xenoblade Chronicles X Definitive Edition"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -80,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:text="Уже слышен гул моторов: релиз Forza Horizon 5 на PS5 состоится в апреле"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:text="Выход ремастера Tony Hawk’s Pro Skater 3 + 4 скорее всего состоится до конца 2025 года"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -162,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:text="Крейг Дункан – «Ждать определенно стоит»: релиз Fable откладывается до 2026"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="4dp"/>
 
             <TextView
@@ -203,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:text="Условно-бесплатный шутер Spectre Divide прибудет на PS5 и Xbox Series в феврале"
                 android:textSize="16sp"
-                android:textColor="@android:color/white"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginBottom="4dp"/>
 
             <TextView

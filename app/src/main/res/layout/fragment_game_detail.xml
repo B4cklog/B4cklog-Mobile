@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="?attr/android:colorBackground"
     android:padding="16dp">
 
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_title"
         android:textSize="24sp"
-        android:textColor="@android:color/white"/>
+        android:textColor="?attr/colorOnBackground"/>
 
     <TextView
         android:id="@+id/game_summary"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_summary"
         android:textSize="16sp"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnBackground"
         android:layout_marginTop="16dp"/>
 
     <TextView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:text="@string/release_date"
         android:textSize="16sp"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnBackground"
         android:layout_marginTop="16dp"/>
 
     <TextView
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="@string/plaforms"
         android:textSize="16sp"
-        android:textColor="@android:color/white"
+        android:textColor="?attr/colorOnBackground"
         android:layout_marginTop="16dp" />
 
     <Space

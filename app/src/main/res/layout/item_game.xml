@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textColor="@android:color/white"/>
+            android:textColor="?attr/colorOnBackground"/>
 
         <TextView
             android:id="@+id/gameSummary"
@@ -31,6 +31,6 @@
             android:textSize="14sp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:textColor="@android:color/darker_gray"/>
+            android:textColor="?attr/colorOnBackground"/>
     </LinearLayout>
 </LinearLayout>
