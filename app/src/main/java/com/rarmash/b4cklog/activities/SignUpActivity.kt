@@ -16,40 +16,56 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var signup_button: Button
-    lateinit var etLogin: EditText
-    lateinit var etPassword: EditText
-    lateinit var etEmail: EditText
+    private lateinit var signupButton: Button
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
+    private lateinit var etEmail: EditText
+    private lateinit var etFirstName: EditText
+    private lateinit var etLastName: EditText
+    private lateinit var etAge: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        signup_button = findViewById(R.id.signup_button)
-        etLogin = findViewById(R.id.editTextUsername)
+        signupButton = findViewById(R.id.signup_button)
+        etUsername = findViewById(R.id.editTextUsername)
         etPassword = findViewById(R.id.editTextPassword)
         etEmail = findViewById(R.id.editTextEmail)
+        etFirstName = findViewById(R.id.editTextFirstName)
+        etLastName = findViewById(R.id.editTextLastName)
+        etAge = findViewById(R.id.editTextAge)
 
-        signup_button.setOnClickListener {
-            val login = etLogin.text.toString()
+        signupButton.setOnClickListener {
+            val username = etUsername.text.toString()
             val password = etPassword.text.toString()
             val email = etEmail.text.toString()
-            if (login.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()) {
-                registerUser(login, password, email)
+            val firstName = etFirstName.text.toString()
+            val lastName = etLastName.text.toString()
+            val age = etAge.text.toString().toInt()
+
+            if (
+                username.isNotEmpty()
+                && password.isNotEmpty()
+                && email.isNotEmpty()
+                && firstName.isNotEmpty()
+                && lastName.isNotEmpty()) {
+                registerUser(username, password, email, firstName, lastName, age)
             } else {
                 Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun registerUser(login: String, password: String, email: String) {
-        val call = ApiClient.authApi.register(RegisterRequest(login, password, email))
+    private fun registerUser(username: String, password: String, email: String, firstName: String, lastName: String, age: Int) {
+        val call = ApiClient.authApi.register(RegisterRequest(username, email, password, firstName, lastName, age))
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful) {
                     val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
                     startActivity(intent)
                 } else {
+                    //TODO: Добавить больше вариантов ошибок
                     Toast.makeText(this@SignUpActivity, "Ошибка регистрации", Toast.LENGTH_SHORT).show()
                 }
             }

@@ -1,14 +1,17 @@
 package com.rarmash.b4cklog.network
 
 data class LoginRequest (
-    val login: String,
+    val username: String,
     val password: String
 )
 
 data class RegisterRequest (
-    val login: String,
+    val username: String,
+    val email: String,
     val password: String,
-    val email: String
+    val firstName: String,
+    val lastName: String,
+    val age: Int
 )
 
 data class AuthResponse (

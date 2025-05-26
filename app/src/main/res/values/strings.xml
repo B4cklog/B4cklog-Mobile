@@ -6,6 +6,9 @@
     <string name="username">Имя пользователя</string>
     <string name="password">Пароль</string>
     <string name="email">Email</string>
+    <string name="firstName">Имя</string>
+    <string name="lastName">Фамилия</string>
+    <string name="age">Возраст</string>
     <string name="signup_label">Регистрация</string>
     <string name="game_title">Forza Horizon</string>
     <string name="game_summary">Forza Horizon is an action racing game set on the epic open roads of Colorado with a thrilling music festival backdrop. Combining stunning graphics and cutting-edge music with legendary Forza authenticity and a superb collection of cars to drive, Forza Horizon is an open-world automotive playground that puts a spotlight on speed, style, and the freedom of the open road. This is where cars belong!</string>

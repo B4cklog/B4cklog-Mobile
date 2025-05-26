@@ -15,31 +15,31 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var login_button: Button
-    lateinit var etLogin: EditText
-    lateinit var etPassword: EditText
+    private lateinit var loginButton: Button
+    private lateinit var etUsername: EditText
+    private lateinit var etPassword: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        login_button = findViewById(R.id.login_button)
-        etLogin = findViewById(R.id.editTextUsername)
+        loginButton = findViewById(R.id.login_button)
+        etUsername = findViewById(R.id.editTextUsername)
         etPassword = findViewById(R.id.editTextPassword)
 
-        login_button.setOnClickListener {
-            val login = etLogin.text.toString()
+        loginButton.setOnClickListener {
+            val username = etUsername.text.toString()
             val password = etPassword.text.toString()
-            if (login.isNotEmpty() && password.isNotEmpty()) {
-                loginUser(login, password)
+            if (username.isNotEmpty() && password.isNotEmpty()) {
+                loginUser(username, password)
             } else {
                 Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun loginUser(login: String, password: String) {
-        val call = ApiClient.authApi.login(LoginRequest(login, password))
+    private fun loginUser(username: String, password: String) {
+        val call = ApiClient.authApi.login(LoginRequest(username, password))
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful) {
