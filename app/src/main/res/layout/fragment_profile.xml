@@ -36,10 +36,28 @@
                     android:id="@+id/userName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Rarmash"
+                    android:text="@string/username"
                     android:textSize="24sp"
                     android:textColor="?attr/colorOnBackground"
                     android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/userFullNameAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/full_name_age"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginTop="4dp"/>
+
+                <TextView
+                    android:id="@+id/userEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textSize="16sp"
+                    android:textColor="?attr/colorOnBackground"
+                    android:layout_marginTop="4dp"/>
             </LinearLayout>
 
             <TextView

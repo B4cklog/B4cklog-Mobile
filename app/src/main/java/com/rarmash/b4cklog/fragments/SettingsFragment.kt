@@ -1,5 +1,6 @@
 package com.rarmash.b4cklog.fragments
 
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import com.rarmash.b4cklog.R
+import com.rarmash.b4cklog.activities.WelcomeActivity
+import com.rarmash.b4cklog.util.AuthPrefs
 
 class SettingsFragment : Fragment() {
 
@@ -36,6 +39,17 @@ class SettingsFragment : Fragment() {
 
             // Перезапускаем активность
             requireActivity().recreate()
+        }
+
+        val logoutButton = view.findViewById<View>(R.id.logout)
+        logoutButton.setOnClickListener {
+            // Удаляем токен
+            AuthPrefs.clearToken(requireContext())
+
+            // Запускаем WelcomeActivity
+            val intent = Intent(requireContext(), WelcomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
 
         return view

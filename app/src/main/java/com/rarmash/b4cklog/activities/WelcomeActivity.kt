@@ -6,6 +6,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.rarmash.b4cklog.R
+import com.rarmash.b4cklog.util.AuthPrefs
 
 class WelcomeActivity : AppCompatActivity() {
     lateinit var login_button: Button
@@ -19,6 +20,14 @@ class WelcomeActivity : AppCompatActivity() {
             if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES
             else AppCompatDelegate.MODE_NIGHT_NO
         )
+
+        val token = AuthPrefs.getToken(this)
+        if (!token.isNullOrEmpty()) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)

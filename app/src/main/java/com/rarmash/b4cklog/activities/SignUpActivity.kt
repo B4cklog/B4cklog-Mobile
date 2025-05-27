@@ -11,6 +11,7 @@ import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.network.ApiClient
 import com.rarmash.b4cklog.network.AuthResponse
 import com.rarmash.b4cklog.network.RegisterRequest
+import com.rarmash.b4cklog.util.AuthPrefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,7 +63,11 @@ class SignUpActivity : AppCompatActivity() {
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful) {
-                    val intent = Intent(this@SignUpActivity, LoginActivity::class.java)
+                    val token = response.body()!!.token
+
+                    AuthPrefs.saveToken(this@SignUpActivity, token)
+                    val intent = Intent(this@SignUpActivity, MainActivity::class.java)
+                    Toast.makeText(this@SignUpActivity, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
                     startActivity(intent)
                 } else {
                     //TODO: Добавить больше вариантов ошибок

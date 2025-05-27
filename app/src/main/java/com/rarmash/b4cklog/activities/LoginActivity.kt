@@ -10,6 +10,7 @@ import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.network.ApiClient
 import com.rarmash.b4cklog.network.AuthResponse
 import com.rarmash.b4cklog.network.LoginRequest
+import com.rarmash.b4cklog.util.AuthPrefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -42,8 +43,11 @@ class LoginActivity : AppCompatActivity() {
         val call = ApiClient.authApi.login(LoginRequest(username, password))
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if (response.isSuccessful) {
+                if (response.isSuccessful && response.body() != null) {
+                    val token = response.body()!!.token
+
                     Toast.makeText(this@LoginActivity, "Успешный вход!", Toast.LENGTH_SHORT).show()
+                    AuthPrefs.saveToken(this@LoginActivity, token)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {

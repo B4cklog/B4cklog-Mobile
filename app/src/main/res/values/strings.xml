@@ -19,4 +19,5 @@
     <string name="playing">Прохожу</string>
     <string name="completed">Прошёл</string>
     <string name="wishlist">Желаемое</string>
+    <string name="full_name_age">Полное имя + Возраст</string>
 </resources>
