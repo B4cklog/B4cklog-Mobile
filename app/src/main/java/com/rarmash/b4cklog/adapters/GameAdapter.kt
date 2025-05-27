@@ -10,11 +10,26 @@ import com.bumptech.glide.Glide
 import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.models.Game
 
-class GameAdapter(private var games: List<Game>) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
+class GameAdapter(
+    private var games: List<Game>,
+    private val onClick: (Game) -> Unit
+) : RecyclerView.Adapter<GameAdapter.GameViewHolder>() {
 
-    class GameViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val gameName: TextView = view.findViewById(R.id.gameName)
-        val gameCover: ImageView = view.findViewById(R.id.gameCover)
+    inner class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val coverImage = itemView.findViewById<ImageView>(R.id.gameCover)
+        private val nameText = itemView.findViewById<TextView>(R.id.gameName)
+
+        fun bind(game: Game) {
+            nameText.text = game.name
+
+            Glide.with(itemView.context)
+                .load(game.cover)
+                .placeholder(R.drawable.avatar) //TODO: Поменять плейсхолдер
+                //.error(R.drawable.placeholder_cover)
+                .into(coverImage)
+
+            itemView.setOnClickListener { onClick(game) }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GameViewHolder {
@@ -23,13 +38,7 @@ class GameAdapter(private var games: List<Game>) : RecyclerView.Adapter<GameAdap
     }
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
-        val game = games[position]
-        holder.gameName.text = game.name
-
-        Glide.with(holder.itemView.context)
-            .load(game.imageUrl ?: R.drawable.placeholder_image)
-            .placeholder(R.drawable.placeholder_image)
-            .into(holder.gameCover)
+        holder.bind(games[position])
     }
 
     override fun getItemCount(): Int = games.size
@@ -39,3 +48,4 @@ class GameAdapter(private var games: List<Game>) : RecyclerView.Adapter<GameAdap
         notifyDataSetChanged()
     }
 }
+

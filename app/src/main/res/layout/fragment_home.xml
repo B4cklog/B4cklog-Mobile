@@ -18,54 +18,15 @@
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
 
-        <HorizontalScrollView
+        <!-- RecyclerView для популярных игр -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/popularGamesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingEnd="15dp">
-
-                <ImageView
-                    android:id="@+id/popularGame1"
-                    android:layout_width="100dp"
-                    android:layout_height="127dp"
-                    android:src="@drawable/forza1"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-
-                <ImageView
-                    android:id="@+id/popularGame2"
-                    android:layout_width="100dp"
-                    android:layout_height="127dp"
-                    android:src="@drawable/mafia1de"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-
-                <ImageView
-                    android:id="@+id/popularGame3"
-                    android:layout_width="100dp"
-                    android:layout_height="127dp"
-                    android:src="@drawable/avowed"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:layout_height="140dp"
+            android:overScrollMode="never"
+            android:layout_marginBottom="24dp"
+            android:clipToPadding="false"
+            android:paddingEnd="8dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -75,54 +36,15 @@
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
 
-        <HorizontalScrollView
+        <!-- RecyclerView для последних релизов -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/latestReleaseRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingEnd="15dp">
-
-                <ImageView
-                    android:id="@+id/latestRelease1"
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/avowed"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-
-                <ImageView
-                    android:id="@+id/latestRelease2"
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/hellblade2"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-
-                <ImageView
-                    android:id="@+id/latestRelease3"
-                    android:layout_width="100dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/blackops6"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:layout_marginEnd="15dp"/>
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:layout_height="150dp"
+            android:overScrollMode="never"
+            android:layout_marginBottom="24dp"
+            android:clipToPadding="false"
+            android:paddingEnd="8dp"/>
 
         <Button
             android:id="@+id/fullCatalogButton"

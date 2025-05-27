@@ -45,29 +45,29 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        gameAdapter = GameAdapter(emptyList())
-        historyAdapter = SearchHistoryAdapter(loadHistory()) { selectedQuery ->
-            binding.searchView.setQuery(selectedQuery, false)
-            saveToHistory(selectedQuery)
-            fetchGames(selectedQuery)
-            hideHistory()
-        }
-
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        binding.recyclerView.adapter = gameAdapter
-
-        binding.searchView.clearFocus()
-        binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-            .setHintTextColor(android.graphics.Color.DKGRAY)
-        binding.searchView.queryHint = "Искать игру"
-
-        // Восстановление состояния
-        savedInstanceState?.let {
-            restoringState = true
-            lastQuery = it.getString("lastQuery")
-            binding.searchView.setQuery(lastQuery, false)
-            lastQuery?.let { fetchGames(it) }
-        }
+//        gameAdapter = GameAdapter(emptyList())
+//        historyAdapter = SearchHistoryAdapter(loadHistory()) { selectedQuery ->
+//            binding.searchView.setQuery(selectedQuery, false)
+//            saveToHistory(selectedQuery)
+//            fetchGames(selectedQuery)
+//            hideHistory()
+//        }
+//
+//        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+//        binding.recyclerView.adapter = gameAdapter
+//
+//        binding.searchView.clearFocus()
+//        binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+//            .setHintTextColor(android.graphics.Color.DKGRAY)
+//        binding.searchView.queryHint = "Искать игру"
+//
+//        // Восстановление состояния
+//        savedInstanceState?.let {
+//            restoringState = true
+//            lastQuery = it.getString("lastQuery")
+//            binding.searchView.setQuery(lastQuery, false)
+//            lastQuery?.let { fetchGames(it) }
+//        }
 
         return binding.root
     }

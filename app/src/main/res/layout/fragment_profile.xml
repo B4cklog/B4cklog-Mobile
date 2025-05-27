@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="?attr/android:colorBackground"
     android:padding="16dp">
 
@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Профиль пользователя -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -60,177 +61,114 @@
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
 
+            <!-- backlogWantToPlay -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/want_to_play"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnBackground"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerWantToPlay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintHeight_min="127dp"
+                android:layoutDirection="ltr"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingEnd="15dp">
-
-                    <ImageView
-                        android:id="@+id/plannedGame1"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/forza1"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-
-                    <ImageView
-                        android:id="@+id/plannedGame2"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/forza2"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-
-                    <ImageView
-                        android:id="@+id/plannedGame3"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/forza3"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
+            <!-- backlogPlaying -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/playing"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnBackground"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPlaying"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintHeight_min="127dp"
+                android:layoutDirection="ltr"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingEnd="15dp">
+            <!-- backlogPlayed -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/played"
+                android:textSize="20sp"
+                android:textColor="?attr/colorOnBackground"
+                android:layout_marginBottom="8dp"/>
 
-                    <ImageView
-                        android:id="@+id/playingGame1"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/forza4"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPlayed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintHeight_min="127dp"
+                android:layoutDirection="ltr"/>
 
-                    <ImageView
-                        android:id="@+id/playingGame2"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/forza5"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
+            <!-- backlogCompleted -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/completed"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnBackground"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCompleted"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintHeight_min="127dp"
+                android:layoutDirection="ltr"/>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingEnd="15dp">
-
-                    <ImageView
-                        android:id="@+id/completedGame1"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/hellblade2"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
+            <!-- backlogCompleted100 -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/wishlist"
+                android:text="@string/completed_100"
                 android:textSize="20sp"
                 android:textColor="?attr/colorOnBackground"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="8dp"/>
 
-            <HorizontalScrollView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCompleted100"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingEnd="15dp">
-
-                    <ImageView
-                        android:id="@+id/wishlistGame1"
-                        android:layout_width="100dp"
-                        android:layout_height="127dp"
-                        android:src="@drawable/avowed"
-                        android:scaleType="centerCrop"
-                        android:adjustViewBounds="true"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginEnd="15dp"/>
-                </LinearLayout>
-            </HorizontalScrollView>
-
+                android:layout_marginBottom="24dp"
+                android:overScrollMode="never"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal"
+                app:layout_constraintHeight_min="127dp"
+                android:layoutDirection="ltr"/>
         </LinearLayout>
     </ScrollView>
 
+    <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
@@ -240,7 +178,7 @@
         android:layout_margin="16dp"
         app:backgroundTint="@color/orange"
         app:elevation="6dp"
-        android:textColor="@color/black"
+        android:tint="@color/black"
         app:rippleColor="@color/black"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

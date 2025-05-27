@@ -22,6 +22,9 @@
         android:name="com.rarmash.b4cklog.fragments.GameDetailFragment"
         android:label="Game Detail Fragment"
         tools:layout="@layout/fragment_game_detail">
+        <argument
+            android:name="gameId"
+            app:argType="integer" />
     </fragment>
 
     <fragment

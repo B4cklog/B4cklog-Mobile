@@ -17,7 +17,9 @@
     <string name="add_to_backlog">Добавить в бэклог</string>
     <string name="want_to_play">Собираюсь пройти</string>
     <string name="playing">Прохожу</string>
+    <string name="played">Сыграл</string>
     <string name="completed">Прошёл</string>
+    <string name="completed_100">Прошёл на 100%</string>
     <string name="wishlist">Желаемое</string>
     <string name="full_name_age">Полное имя + Возраст</string>
 </resources>

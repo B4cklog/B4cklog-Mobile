@@ -13,6 +13,8 @@ class WelcomeActivity : AppCompatActivity() {
     lateinit var signup_button: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
         val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", true)
 
@@ -29,7 +31,6 @@ class WelcomeActivity : AppCompatActivity() {
             return
         }
 
-        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_welcome)
 
         login_button = findViewById(R.id.login_button)

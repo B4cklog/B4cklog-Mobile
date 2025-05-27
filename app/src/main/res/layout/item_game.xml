@@ -1,36 +1,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    android:orientation="vertical"
+    android:padding="4dp">
 
     <ImageView
         android:id="@+id/gameCover"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
         android:scaleType="centerCrop"
-        android:background="@drawable/search_view_border"/>
+        android:background="?attr/selectableItemBackground" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/gameName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingStart="8dp">
-
-        <TextView
-            android:id="@+id/gameName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="?attr/colorOnBackground"/>
-
-        <TextView
-            android:id="@+id/gameSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:textColor="?attr/colorOnBackground"/>
-    </LinearLayout>
+        android:textSize="12sp"
+        android:textColor="?attr/colorOnBackground"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:gravity="center" />
 </LinearLayout>
