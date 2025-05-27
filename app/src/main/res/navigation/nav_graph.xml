@@ -32,6 +32,11 @@
         android:name="com.rarmash.b4cklog.fragments.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment"
+            app:popUpTo="@id/searchFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment

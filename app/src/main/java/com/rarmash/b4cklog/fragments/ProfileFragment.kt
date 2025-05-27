@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.adapters.GameAdapter
 import com.rarmash.b4cklog.models.Game
@@ -71,6 +72,11 @@ class ProfileFragment : Fragment() {
         recyclerPlayed.adapter = adapterPlayed
         recyclerCompleted.adapter = adapterCompleted
         recyclerCompleted100.adapter = adapterCompleted100
+
+        val settingsButton = view.findViewById<FloatingActionButton>(R.id.settingsButton)
+        settingsButton.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_profileFragment_to_settingsFragment)
+        }
 
         loadProfile()
 

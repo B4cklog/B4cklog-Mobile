@@ -11,14 +11,16 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.adapters.GameAdapter
 import com.rarmash.b4cklog.adapters.SearchHistoryAdapter
 import com.rarmash.b4cklog.databinding.FragmentSearchBinding
-import com.rarmash.b4cklog.models.GameResponse
-import com.rarmash.b4cklog.network.RetrofitClient
-import com.rarmash.b4cklog.network.RetrofitClient.API_KEY
+import com.rarmash.b4cklog.models.Game
+import com.rarmash.b4cklog.network.ApiClient
 import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
@@ -45,29 +47,34 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-//        gameAdapter = GameAdapter(emptyList())
-//        historyAdapter = SearchHistoryAdapter(loadHistory()) { selectedQuery ->
-//            binding.searchView.setQuery(selectedQuery, false)
-//            saveToHistory(selectedQuery)
-//            fetchGames(selectedQuery)
-//            hideHistory()
-//        }
-//
-//        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-//        binding.recyclerView.adapter = gameAdapter
-//
-//        binding.searchView.clearFocus()
-//        binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-//            .setHintTextColor(android.graphics.Color.DKGRAY)
-//        binding.searchView.queryHint = "Искать игру"
-//
-//        // Восстановление состояния
-//        savedInstanceState?.let {
-//            restoringState = true
-//            lastQuery = it.getString("lastQuery")
-//            binding.searchView.setQuery(lastQuery, false)
-//            lastQuery?.let { fetchGames(it) }
-//        }
+        // Инициализация адаптеров
+        gameAdapter = GameAdapter(emptyList()) { game ->
+            val bundle = bundleOf("gameId" to game.id)
+            Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment_to_gameDetailFragment, bundle)
+        }
+        historyAdapter = SearchHistoryAdapter(loadHistory()) { selectedQuery ->
+            binding.searchView.setQuery(selectedQuery, false)
+            saveToHistory(selectedQuery)
+            fetchGames(selectedQuery)
+            hideHistory()
+        }
+
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = gameAdapter
+
+        binding.searchView.clearFocus()
+        // Подсказка и цвет текста в поисковой строке
+        binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+            .setHintTextColor(android.graphics.Color.DKGRAY)
+        binding.searchView.queryHint = "Искать игру"
+
+        // Восстановление состояния, если есть сохранённый запрос
+        savedInstanceState?.let {
+            restoringState = true
+            lastQuery = it.getString("lastQuery")
+            binding.searchView.setQuery(lastQuery, false)
+            lastQuery?.let { fetchGames(it) }
+        }
 
         return binding.root
     }
@@ -145,11 +152,11 @@ class SearchFragment : Fragment() {
         lastQuery = searchQuery
         showLoadingState()
 
-        RetrofitClient.gameApiService.getGames(searchQuery, API_KEY).enqueue(object : Callback<GameResponse> {
-            override fun onResponse(call: Call<GameResponse>, response: Response<GameResponse>) {
+        ApiClient.gameApi.searchGames(searchQuery).enqueue(object : Callback<List<Game>> {
+            override fun onResponse(call: Call<List<Game>>, response: Response<List<Game>>) {
                 Log.d("SearchFragment", "Код ответа: ${response.code()}")
                 if (response.isSuccessful) {
-                    val games = response.body()?.games ?: emptyList()
+                    val games = response.body() ?: emptyList()
                     gameAdapter.updateGames(games)
                     binding.progressBar.visibility = View.GONE
                     updatePlaceholder(games.isEmpty())
@@ -159,7 +166,7 @@ class SearchFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<GameResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<Game>>, t: Throwable) {
                 binding.progressBar.visibility = View.GONE
                 Toast.makeText(context, "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
                 showErrorPlaceholder()

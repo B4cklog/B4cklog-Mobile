@@ -10,16 +10,18 @@
     <string name="lastName">Фамилия</string>
     <string name="age">Возраст</string>
     <string name="signup_label">Регистрация</string>
-    <string name="game_title">Forza Horizon</string>
-    <string name="game_summary">Forza Horizon is an action racing game set on the epic open roads of Colorado with a thrilling music festival backdrop. Combining stunning graphics and cutting-edge music with legendary Forza authenticity and a superb collection of cars to drive, Forza Horizon is an open-world automotive playground that puts a spotlight on speed, style, and the freedom of the open road. This is where cars belong!</string>
-    <string name="release_date"><u>Дата выхода: 23.10.2012</u></string>
-    <string name="plaforms"><u>Платформы: Xbox 360</u></string>
+    <string name="game_title">Название игры</string>
+    <string name="game_summary">Описание игры</string>
+    <string name="release_date"><u>Дата выхода</u></string>
+    <string name="plaforms"><u>Платформы</u></string>
     <string name="add_to_backlog">Добавить в бэклог</string>
-    <string name="want_to_play">Собираюсь пройти</string>
+    <string name="want_to_play">Хочу пройти</string>
     <string name="playing">Прохожу</string>
-    <string name="played">Сыграл</string>
+    <string name="played">Сыграно</string>
     <string name="completed">Прошёл</string>
     <string name="completed_100">Прошёл на 100%</string>
     <string name="wishlist">Желаемое</string>
     <string name="full_name_age">Полное имя + Возраст</string>
+    <string name="remove_from_backlog">Удалить игру из бэклога</string>
+    <string name="in_a_list">В списке</string>
 </resources>

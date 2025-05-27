@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +13,7 @@
         android:layout_height="250dp"
         android:layout_marginBottom="16dp"
         android:src="@drawable/forza1"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/game_name"
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:text="@string/game_title"
         android:textSize="24sp"
-        android:textColor="?attr/colorOnBackground"/>
+        android:textColor="?attr/colorOnBackground" />
 
     <TextView
         android:id="@+id/game_summary"
@@ -29,7 +30,7 @@
         android:text="@string/game_summary"
         android:textSize="16sp"
         android:textColor="?attr/colorOnBackground"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/game_release_date"
@@ -38,7 +39,7 @@
         android:text="@string/release_date"
         android:textSize="16sp"
         android:textColor="?attr/colorOnBackground"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/game_platforms"
@@ -54,7 +55,43 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/game_list_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/in_a_list"
+            android:textSize="16sp"
+            android:textColor="?attr/colorOnBackground"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+
+        <ImageButton
+            android:id="@+id/remove_from_backlog_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_delete"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Удалить из списка"
+            app:tint="@android:color/holo_red_dark"
+            app:layout_constraintTop_toTopOf="@id/game_list_info"
+            app:layout_constraintBottom_toBottomOf="@id/game_list_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
     <Button
+        android:id="@+id/add_to_backlog_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/orange"
