@@ -61,5 +61,17 @@
         android:name="com.rarmash.b4cklog.fragments.SettingsFragment"
         android:label="Settings Fragment"
         tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_accountSettingsFragment"
+            app:destination="@id/accountSettingsFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accountSettingsFragment"
+        android:name="com.rarmash.b4cklog.fragments.AccountSettingsFragment"
+        android:label="Account Settings Fragment"
+        tools:layout="@layout/fragment_account_settings">
     </fragment>
 </navigation>

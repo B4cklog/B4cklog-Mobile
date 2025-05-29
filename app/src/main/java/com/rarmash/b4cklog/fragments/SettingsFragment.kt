@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.activities.WelcomeActivity
 import com.rarmash.b4cklog.util.AuthPrefs
@@ -27,6 +28,11 @@ class SettingsFragment : Fragment() {
         // Установка начального состояния
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
         themeSwitch.isChecked = isDarkMode
+
+        val accountSettingsButton = view.findViewById<View>(R.id.account)
+        accountSettingsButton.setOnClickListener {
+            Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
+        }
 
         // Обработчик переключения
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
