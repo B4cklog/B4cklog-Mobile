@@ -31,28 +31,32 @@ class ReviewDialogFragment(
 
                 val userId = SessionManager.userId
                 if (userId == null) {
-                    Toast.makeText(requireContext(), "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
+                    if (isAdded) {
+                        Toast.makeText(requireContext(), "Пользователь не авторизован", Toast.LENGTH_SHORT).show()
+                    }
                     return@setPositiveButton
                 }
 
                 val review = ReviewRequest(userId, gameId, rating, comment)
 
-                ApiClient.reviewApi.submitReview(review).enqueue(object : Callback<String> {
-                    override fun onResponse(call: Call<String>, response: Response<String>) {
-                        requireActivity().runOnUiThread {
-                            if (response.isSuccessful) {
-                                Toast.makeText(requireContext(), "Отзыв успешно отправлен", Toast.LENGTH_SHORT).show()
-                                onReviewSubmitted?.invoke()
-                            } else {
-                                Toast.makeText(requireContext(), "Ошибка при отправке отзыва", Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                ApiClient.reviewApi.submitReview(review).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        if (!isAdded) return
+                        // всегда показываем тост
+                        Toast.makeText(
+                            requireContext(),
+                            "Отзыв отправлен",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        // отдаем сигнал старшему фрагменту
+                        parentFragmentManager.setFragmentResult("review_added", Bundle())
+                        onReviewSubmitted?.invoke()
+                        dismiss()
                     }
 
-                    override fun onFailure(call: Call<String>, t: Throwable) {
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(), "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
-                        }
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        if (!isAdded) return
+                        Toast.makeText(requireContext(), "Ошибка сети при отправке: ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
             }

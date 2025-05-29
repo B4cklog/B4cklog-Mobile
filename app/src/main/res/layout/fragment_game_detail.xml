@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:layout_marginBottom="16dp"
-            android:src="@drawable/forza1"
+            android:src="@drawable/cover_placeholder"
             android:scaleType="centerCrop" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:id="@+id/game_average_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Средняя оценка: 0.0"
+            android:text="@string/average_rating"
             android:textSize="16sp"
             android:textColor="?attr/colorOnBackground"
             android:layout_marginTop="24dp" />
@@ -66,7 +66,7 @@
             android:id="@+id/write_review_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Оставить отзыв"
+            android:text="@string/leave_review"
             android:layout_marginTop="8dp"
             android:backgroundTint="@color/orange"
             android:textColor="@color/black"/>
@@ -75,10 +75,10 @@
             android:id="@+id/user_review_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Твой отзыв появится здесь"
+            android:text="@string/review"
             android:visibility="gone"
             android:paddingTop="8dp"
-            android:textColor="@android:color/black"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="16sp" />
 
         <Space
@@ -110,16 +110,13 @@
                 android:layout_height="40dp"
                 android:src="@drawable/ic_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Удалить из списка"
-                app:tint="@android:color/holo_red_dark"
+                android:contentDescription="@string/delete_from_backlog"
+                app:tint="@color/orange"
                 app:layout_constraintTop_toTopOf="@id/game_list_info"
                 app:layout_constraintBottom_toBottomOf="@id/game_list_info"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="gone"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
         <Button
             android:id="@+id/add_to_backlog_button"

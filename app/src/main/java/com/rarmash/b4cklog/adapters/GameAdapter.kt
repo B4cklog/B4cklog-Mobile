@@ -24,8 +24,8 @@ class GameAdapter(
 
             Glide.with(itemView.context)
                 .load(game.cover)
-                .placeholder(R.drawable.avatar) //TODO: Поменять плейсхолдер
-                //.error(R.drawable.placeholder_cover)
+                .placeholder(R.drawable.cover_placeholder)
+                .error(R.drawable.cover_placeholder)
                 .into(coverImage)
 
             itemView.setOnClickListener { onClick(game) }

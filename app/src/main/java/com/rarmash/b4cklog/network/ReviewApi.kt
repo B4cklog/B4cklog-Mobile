@@ -13,7 +13,7 @@ interface ReviewApi {
     fun getAverageRating(@Path("gameId") gameId: Int): Call<Double>
 
     @POST("/reviews/add")
-    fun submitReview(@Body reviewRequest: ReviewRequest): Call<String>
+    fun submitReview(@Body reviewRequest: ReviewRequest): Call<Void>
 
     @GET("/reviews/user/{userId}/game/{gameId}")
     fun getUserReview(

@@ -13,7 +13,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Популярные"
+            android:text="@string/popular_releases"
             android:textSize="20sp"
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
@@ -22,7 +22,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularGamesRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="220dp"
             android:overScrollMode="never"
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Последние релизы"
+            android:text="@string/latest_releases"
             android:textSize="20sp"
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
@@ -40,24 +40,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latestReleaseRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="220dp"
             android:overScrollMode="never"
             android:layout_marginBottom="24dp"
             android:clipToPadding="false"
             android:paddingEnd="8dp"/>
-
-        <Button
-            android:id="@+id/fullCatalogButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Полный каталог"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:backgroundTint="@color/orange"
-            android:gravity="center"
-            android:paddingVertical="12dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"/>
 
     </LinearLayout>
 </ScrollView>

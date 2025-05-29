@@ -27,7 +27,7 @@
         android:id="@+id/clearHistoryButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Очистить историю"
+        android:text="@string/clear_history"
         android:visibility="gone"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="4dp"
@@ -60,13 +60,13 @@
             android:layout_height="wrap_content"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
-            android:text="Нет результатов" />
+            android:text="@string/no_results" />
 
         <Button
             android:id="@+id/retryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Обновить"
+            android:text="@string/update"
             android:backgroundTint="@color/orange"
             android:visibility="gone" />
     </LinearLayout>

@@ -28,4 +28,17 @@
     <string name="update_password">Обновить пароль</string>
     <string name="new_email">Новый email</string>
     <string name="update_email">Обновить Email</string>
+    <string name="latest_releases">Последние релизы</string>
+    <string name="popular_releases">Популярные</string>
+    <string name="exit">Выход</string>
+    <string name="dark_mode">Тёмная тема</string>
+    <string name="account">Учётная запись</string>
+    <string name="clear_history">Очистить историю</string>
+    <string name="no_results">Нет результатов</string>
+    <string name="update">Обновить</string>
+    <string name="average_rating">Средняя оценка</string>
+    <string name="leave_review">Оставить отзыв</string>
+    <string name="review">Отзыв</string>
+    <string name="delete_from_backlog">Удалить из списка</string>
+    <string name="your_review">Ваш отзыв</string>
 </resources>

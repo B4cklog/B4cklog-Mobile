@@ -5,7 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.models.Game
@@ -13,6 +16,8 @@ import com.rarmash.b4cklog.models.ReviewResponse
 import com.rarmash.b4cklog.models.User
 import com.rarmash.b4cklog.network.ApiClient
 import com.rarmash.b4cklog.util.SessionManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,6 +38,10 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        parentFragmentManager.setFragmentResultListener("review_added", viewLifecycleOwner) { _, _ ->
+            reloadFragment()
+        }
+
         gameId = arguments?.getInt("gameId") ?: return
 
         loadGameDetails(gameId)
@@ -49,9 +58,12 @@ class GameDetailFragment : Fragment() {
 
         val reviewButton = view.findViewById<Button>(R.id.write_review_button)
         reviewButton.setOnClickListener {
-            ReviewDialogFragment(gameId) {
-                loadGameRating(gameId)
-                loadUserReview(gameId)
+            ReviewDialogFragment(gameId){
+                viewLifecycleOwner.lifecycleScope.launch {
+                    delay(50)
+                    loadGameRating(gameId)
+                    loadUserReview(gameId)
+                }
             }.show(childFragmentManager, "ReviewDialog")
         }
 
@@ -122,6 +134,8 @@ class GameDetailFragment : Fragment() {
                     val coverView = view?.findViewById<ImageView>(R.id.game_cover)
                     Glide.with(requireContext())
                         .load(game.cover)
+                        .placeholder(R.drawable.cover_placeholder)
+                        .error(R.drawable.cover_placeholder)
                         .into(coverView!!)
                 }
             }
@@ -229,5 +243,14 @@ class GameDetailFragment : Fragment() {
                 Toast.makeText(requireContext(), "Не удалось получить профиль", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun reloadFragment() {
+        // Сохраняем аргументы
+        val args = bundleOf("gameId" to gameId)
+        // Убираем текущий из стека
+        findNavController().popBackStack(R.id.gameDetailFragment, true)
+        // Навигируем заново
+        findNavController().navigate(R.id.gameDetailFragment, args)
     }
 }

@@ -32,7 +32,7 @@
             android:id="@+id/accountText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Учётная запись"
+            android:text="@string/account"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             android:layout_marginStart="16dp"
@@ -65,7 +65,7 @@
             android:id="@+id/themeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Тёмная тема"
+            android:text="@string/dark_mode"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             android:layout_marginStart="16dp"
@@ -84,76 +84,6 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/language"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="12dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/themeSwitchContainer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/languageIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_language"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="?attr/colorOnBackground" />
-
-        <TextView
-            android:id="@+id/languageText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Язык"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/languageIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/appInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingVertical="12dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/language"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <ImageView
-            android:id="@+id/appInfoIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/icon_info"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:tint="?attr/colorOnBackground" />
-
-        <TextView
-            android:id="@+id/appInfoText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Информация о приложении"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toEndOf="@id/appInfoIcon"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -161,7 +91,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        app:layout_constraintTop_toBottomOf="@id/appInfo"
+        app:layout_constraintTop_toBottomOf="@id/themeSwitchContainer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
@@ -179,7 +109,7 @@
             android:id="@+id/logoutText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Выход"
+            android:text="@string/exit"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             android:layout_marginStart="16dp"
