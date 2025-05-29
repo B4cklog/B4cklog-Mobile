@@ -14,7 +14,7 @@
     </style>
 
     <style name="BottomNavigationTextInactive">
-        <item name="android:textSize">0sp</item>
+        <item name="android:textSize">1sp</item>
         <item name="android:textColor">@android:color/transparent</item>
     </style>
 </resources>

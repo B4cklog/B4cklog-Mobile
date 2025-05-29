@@ -36,6 +36,7 @@
             android:layout_alignParentBottom="true"
             style="@style/BottomNavigationStyle"
             app:itemBackground="@drawable/bottom_nav_item_background"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

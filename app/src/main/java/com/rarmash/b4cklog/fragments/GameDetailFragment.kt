@@ -4,17 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.rarmash.b4cklog.R
 import com.rarmash.b4cklog.models.Game
+import com.rarmash.b4cklog.models.ReviewResponse
 import com.rarmash.b4cklog.models.User
 import com.rarmash.b4cklog.network.ApiClient
+import com.rarmash.b4cklog.util.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,6 +20,7 @@ import retrofit2.Response
 class GameDetailFragment : Fragment() {
     private var currentListName: String? = null
     private var currentUserId: Int? = null
+    private var gameId: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,17 +33,26 @@ class GameDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val gameId = arguments?.getInt("gameId") ?: return
+        gameId = arguments?.getInt("gameId") ?: return
 
         loadGameDetails(gameId)
+        loadGameRating(gameId)
+        loadUserReview(gameId)
 
         val addToBacklogButton = view.findViewById<Button>(R.id.add_to_backlog_button)
         val removeFromBacklogButton = view.findViewById<ImageButton>(R.id.remove_from_backlog_button)
-
         val listTextView = view.findViewById<TextView>(R.id.game_list_info)
 
         addToBacklogButton.setOnClickListener {
             showAddToListDialog(gameId)
+        }
+
+        val reviewButton = view.findViewById<Button>(R.id.write_review_button)
+        reviewButton.setOnClickListener {
+            ReviewDialogFragment(gameId) {
+                loadGameRating(gameId)
+                loadUserReview(gameId)
+            }.show(childFragmentManager, "ReviewDialog")
         }
 
         loadCurrentUserAndCheckList(gameId, removeFromBacklogButton, listTextView)
@@ -76,22 +84,20 @@ class GameDetailFragment : Fragment() {
                                 .enqueue(object : Callback<Void> {
                                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                         if (response.isSuccessful) {
-                                            Toast.makeText(context, "Удалено из всех списков", Toast.LENGTH_SHORT).show()
-                                            // Можно обновить UI: скрыть кнопку и текст
+                                            Toast.makeText(requireContext(), "Удалено из всех списков", Toast.LENGTH_SHORT).show()
                                             removeButton.visibility = View.GONE
                                             listText.visibility = View.GONE
                                         } else {
-                                            Toast.makeText(context, "Ошибка удаления", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), "Ошибка удаления", Toast.LENGTH_SHORT).show()
                                         }
                                     }
 
                                     override fun onFailure(call: Call<Void>, t: Throwable) {
-                                        Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(), "Ошибка сети", Toast.LENGTH_SHORT).show()
                                     }
                                 })
                         }
                     }
-
                 }
             }
 
@@ -107,19 +113,13 @@ class GameDetailFragment : Fragment() {
                 if (response.isSuccessful) {
                     val game = response.body() ?: return
 
-                    val nameView = view?.findViewById<TextView>(R.id.game_name)
-                    val summaryView = view?.findViewById<TextView>(R.id.game_summary)
-                    val releaseDateView = view?.findViewById<TextView>(R.id.game_release_date)
-                    val platformsView = view?.findViewById<TextView>(R.id.game_platforms)
+                    view?.findViewById<TextView>(R.id.game_name)?.text = game.name
+                    view?.findViewById<TextView>(R.id.game_summary)?.text = game.summary
+                    view?.findViewById<TextView>(R.id.game_release_date)?.text = "Дата выхода: ${game.releaseDate}"
+                    view?.findViewById<TextView>(R.id.game_platforms)?.text =
+                        "Платформы: ${game.platforms.joinToString(", ") { it.name }}"
+
                     val coverView = view?.findViewById<ImageView>(R.id.game_cover)
-
-                    nameView?.text = game.name
-                    summaryView?.text = game.summary
-                    releaseDateView?.text = "Дата выхода: ${game.releaseDate}"
-                    platformsView?.text = "Платформы: ${
-                        game.platforms.joinToString(", ") { it.name }
-                    }"
-
                     Glide.with(requireContext())
                         .load(game.cover)
                         .into(coverView!!)
@@ -130,6 +130,42 @@ class GameDetailFragment : Fragment() {
                 Toast.makeText(context, "Ошибка загрузки игры", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun loadGameRating(gameId: Int) {
+        ApiClient.reviewApi.getAverageRating(gameId).enqueue(object : Callback<Double> {
+            override fun onResponse(call: Call<Double>, response: Response<Double>) {
+                if (response.isSuccessful) {
+                    val rating = response.body() ?: 0.0
+                    view?.findViewById<TextView>(R.id.game_average_rating)?.text =
+                        "Средняя оценка: %.1f".format(rating)
+                }
+            }
+
+            override fun onFailure(call: Call<Double>, t: Throwable) {
+                Toast.makeText(context, "Ошибка загрузки рейтинга", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun loadUserReview(gameId: Int) {
+        val userId = SessionManager.userId ?: return
+
+        ApiClient.reviewApi.getUserReview(userId, gameId)
+            .enqueue(object : Callback<ReviewResponse> {
+                override fun onResponse(call: Call<ReviewResponse>, response: Response<ReviewResponse>) {
+                    if (response.isSuccessful) {
+                        val review = response.body() ?: return
+                        val reviewTextView = view?.findViewById<TextView>(R.id.user_review_text)
+                        reviewTextView?.visibility = View.VISIBLE
+                        reviewTextView?.text = "Твоя оценка: ${review.rating}/5\nКомментарий: ${review.comment ?: "нет"}"
+                    }
+                }
+
+                override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
+                    // Не показываем тост специально — это не критичная информация
+                }
+            })
     }
 
     private fun showAddToListDialog(gameId: Int) {
@@ -169,26 +205,28 @@ class GameDetailFragment : Fragment() {
                         .enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.isSuccessful) {
-                                    Toast.makeText(context, "Добавлено в список", Toast.LENGTH_SHORT).show()
-                                    val removeFromBacklogButton = view?.findViewById<ImageButton>(R.id.remove_from_backlog_button)
-                                    val listTextView = view?.findViewById<TextView>(R.id.game_list_info)
-                                    if (removeFromBacklogButton != null && listTextView != null) {
-                                        loadCurrentUserAndCheckList(gameId, removeFromBacklogButton, listTextView)
+                                    Toast.makeText(requireContext(), "Добавлено в список", Toast.LENGTH_SHORT).show()
+                                    view?.post {
+                                        val removeFromBacklogButton = view?.findViewById<ImageButton>(R.id.remove_from_backlog_button)
+                                        val listTextView = view?.findViewById<TextView>(R.id.game_list_info)
+                                        if (removeFromBacklogButton != null && listTextView != null) {
+                                            loadCurrentUserAndCheckList(gameId, removeFromBacklogButton, listTextView)
+                                        }
                                     }
                                 } else {
-                                    Toast.makeText(context, "Ошибка добавления", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), "Ошибка добавления", Toast.LENGTH_SHORT).show()
                                 }
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), "Ошибка сети", Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Не удалось получить профиль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Не удалось получить профиль", Toast.LENGTH_SHORT).show()
             }
         })
     }

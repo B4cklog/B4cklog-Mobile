@@ -40,13 +40,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.rarmash.b4cklog.fragments.NewsFragment"
-        android:label="News Fragment"
-        tools:layout="@layout/fragment_news">
-    </fragment>
-
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.rarmash.b4cklog.fragments.ProfileFragment"
         android:label="Profile Fragment"

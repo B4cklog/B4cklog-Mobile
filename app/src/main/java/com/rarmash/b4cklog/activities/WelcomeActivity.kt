@@ -16,7 +16,7 @@ class WelcomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
-        val isDarkMode = sharedPreferences.getBoolean("dark_mode", true)
+        val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
 
         AppCompatDelegate.setDefaultNightMode(
             if (isDarkMode) AppCompatDelegate.MODE_NIGHT_YES

@@ -9,10 +9,6 @@
         android:icon="@drawable/icon_search"
         android:title="Поиск" />
     <item
-        android:id="@+id/newsFragment"
-        android:icon="@drawable/icon_news"
-        android:title="Новости" />
-    <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/icon_profile"
         android:title="Профиль" />
