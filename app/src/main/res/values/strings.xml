@@ -24,4 +24,8 @@
     <string name="full_name_age">Полное имя + Возраст</string>
     <string name="remove_from_backlog">Удалить игру из бэклога</string>
     <string name="in_a_list">В списке</string>
+    <string name="new_password">Новый пароль</string>
+    <string name="update_password">Обновить пароль</string>
+    <string name="new_email">Новый email</string>
+    <string name="update_email">Обновить Email</string>
 </resources>
