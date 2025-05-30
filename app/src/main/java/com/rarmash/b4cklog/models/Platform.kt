@@ -5,3 +5,8 @@ data class Platform (
     var name: String,
     var releaseDate: String
 )
+
+data class PlatformRequest(
+    var name: String,
+    var releaseDate: String
+)

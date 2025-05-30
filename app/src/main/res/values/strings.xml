@@ -41,4 +41,12 @@
     <string name="review">Отзыв</string>
     <string name="delete_from_backlog">Удалить из списка</string>
     <string name="your_review">Ваш отзыв</string>
+    <string name="cover_url">Ссылка на обложку</string>
+    <string name="release_date_with_format">Дата выхода (YYYY-MM-DD)</string>
+    <string name="platforms">Платформы:</string>
+    <string name="save">Сохранить</string>
+    <string name="platform_name">Название платформы</string>
+    <string name="add_platform">Добавить платформу</string>
+    <string name="edit">Редактировать</string>
+    <string name="add_game">Добавить игру</string>
 </resources>

@@ -77,6 +77,16 @@ class GameDetailFragment : Fragment() {
                 val user = response.body() ?: return
                 currentUserId = user.id
 
+                val editButton = view?.findViewById<Button>(R.id.edit_game_button)
+                if (user.isAdmin) {
+                    editButton?.visibility = View.VISIBLE
+                    editButton?.setOnClickListener {
+                        val bundle = bundleOf("gameId" to gameId)
+                        findNavController().navigate(R.id.action_gameDetailFragment_to_editGameFragment, bundle)
+                    }
+                }
+
+
                 currentListName = when {
                     user.backlogWantToPlay.any { it.id == gameId } -> getString(R.string.want_to_play)
                     user.backlogPlaying.any { it.id == gameId } -> getString(R.string.playing)

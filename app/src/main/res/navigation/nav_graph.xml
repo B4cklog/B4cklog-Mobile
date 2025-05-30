@@ -25,6 +25,11 @@
         <argument
             android:name="gameId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_gameDetailFragment_to_editGameFragment"
+            app:destination="@id/editGameFragment"
+            app:popUpTo="@id/gameDetailFragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -44,6 +49,11 @@
         android:name="com.rarmash.b4cklog.fragments.ProfileFragment"
         android:label="Profile Fragment"
         tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editGameFragment"
+            app:destination="@id/editGameFragment"
+            app:popUpTo="@id/profileFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
@@ -73,5 +83,16 @@
         android:name="com.rarmash.b4cklog.fragments.AccountSettingsFragment"
         android:label="Account Settings Fragment"
         tools:layout="@layout/fragment_account_settings">
+    </fragment>
+
+    <fragment
+        android:id="@+id/editGameFragment"
+        android:name="com.rarmash.b4cklog.fragments.EditGameFragment"
+        android:label="Редактировать игру"
+        tools:layout="@layout/fragment_edit_game">
+        <argument
+            android:name="gameId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>
