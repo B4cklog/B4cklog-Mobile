@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.rarmash.b4cklog"
+    namespace = "org.b4cklog.mobile"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.rarmash.b4cklog"
+        applicationId = "org.b4cklog.mobile"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

@@ -109,7 +109,7 @@
             android:id="@+id/logoutText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/exit"
+            android:text="@string/sign_out"
             android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             android:layout_marginStart="16dp"
