@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import org.b4cklog.mobile.R
 import org.b4cklog.mobile.activities.WelcomeActivity
 import org.b4cklog.mobile.util.AuthPrefs
+import androidx.navigation.findNavController
+import androidx.core.content.edit
+import androidx.navigation.Navigation
 
 class SettingsFragment : Fragment() {
 
@@ -25,7 +27,6 @@ class SettingsFragment : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("settings", 0)
         themeSwitch = view.findViewById(R.id.themeSwitch)
 
-        // Установка начального состояния
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
         themeSwitch.isChecked = isDarkMode
 
@@ -34,25 +35,21 @@ class SettingsFragment : Fragment() {
             Navigation.findNavController(view).navigate(R.id.action_settingsFragment_to_accountSettingsFragment)
         }
 
-        // Обработчик переключения
         themeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            sharedPreferences.edit().putBoolean("dark_mode", isChecked).apply()
+            sharedPreferences.edit { putBoolean("dark_mode", isChecked) }
 
             AppCompatDelegate.setDefaultNightMode(
                 if (isChecked) AppCompatDelegate.MODE_NIGHT_YES
                 else AppCompatDelegate.MODE_NIGHT_NO
             )
 
-            // Перезапускаем активность
             requireActivity().recreate()
         }
 
         val logoutButton = view.findViewById<View>(R.id.logout)
         logoutButton.setOnClickListener {
-            // Удаляем токен
             AuthPrefs.clearToken(requireContext())
 
-            // Запускаем WelcomeActivity
             val intent = Intent(requireContext(), WelcomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

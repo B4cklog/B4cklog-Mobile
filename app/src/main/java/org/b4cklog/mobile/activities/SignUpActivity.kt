@@ -53,7 +53,7 @@ class SignUpActivity : AppCompatActivity() {
                 && lastName.isNotEmpty()) {
                 registerUser(username, password, email, firstName, lastName, age)
             } else {
-                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -67,16 +67,15 @@ class SignUpActivity : AppCompatActivity() {
 
                     AuthPrefs.saveToken(this@SignUpActivity, token)
                     val intent = Intent(this@SignUpActivity, MainActivity::class.java)
-                    Toast.makeText(this@SignUpActivity, "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
                     startActivity(intent)
                 } else {
-                    //TODO: Добавить больше вариантов ошибок
-                    Toast.makeText(this@SignUpActivity, "Ошибка регистрации", Toast.LENGTH_SHORT).show()
+                    //TODO: Add more types of errors
+                    Toast.makeText(this@SignUpActivity, getString(R.string.register_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@SignUpActivity, "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@SignUpActivity, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_SHORT).show()
                 Log.d("SignUpActivity", "ERROR: ${t.message.toString()}")
             }
         })

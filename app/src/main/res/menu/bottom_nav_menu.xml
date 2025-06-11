@@ -3,13 +3,13 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/icon_home"
-        android:title="Главная" />
+        android:title="@string/home" />
     <item
         android:id="@+id/searchFragment"
         android:icon="@drawable/icon_search"
-        android:title="Поиск" />
+        android:title="@string/search" />
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/icon_profile"
-        android:title="Профиль" />
+        android:title="@string/profile" />
 </menu>

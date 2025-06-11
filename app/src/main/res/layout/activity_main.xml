@@ -34,9 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            style="@style/BottomNavigationStyle"
-            app:itemBackground="@drawable/bottom_nav_item_background"
-            app:labelVisibilityMode="unlabeled"
+            style="@style/Widget.B4cklog.BottomNavigationView"
             app:menu="@menu/bottom_nav_menu" />
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

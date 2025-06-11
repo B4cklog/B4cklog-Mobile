@@ -18,7 +18,6 @@
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
 
-        <!-- RecyclerView для популярных игр -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/popularGamesRecyclerView"
             android:layout_width="match_parent"
@@ -36,7 +35,6 @@
             android:textColor="?attr/colorOnBackground"
             android:layout_marginBottom="16dp"/>
 
-        <!-- RecyclerView для последних релизов -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/latestReleaseRecyclerView"
             android:layout_width="match_parent"

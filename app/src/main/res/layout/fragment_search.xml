@@ -22,7 +22,6 @@
             android:background="@drawable/search_view_border" />
     </LinearLayout>
 
-    <!-- Кнопка очистки истории -->
     <Button
         android:id="@+id/clearHistoryButton"
         android:layout_width="wrap_content"
@@ -31,8 +30,6 @@
         android:visibility="gone"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="4dp"
-        android:backgroundTint="@color/orange"
-        android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@id/searchLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -67,18 +64,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update"
-            android:backgroundTint="@color/orange"
             android:visibility="gone" />
     </LinearLayout>
 
-    <!-- Прогрессбар по центру -->
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:indeterminateTint="@color/orange"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

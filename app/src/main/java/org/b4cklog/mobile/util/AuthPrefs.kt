@@ -1,6 +1,7 @@
 package org.b4cklog.mobile.util
 
 import android.content.Context
+import androidx.core.content.edit
 
 object AuthPrefs {
     private const val PREFS_NAME = "auth_prefs"
@@ -8,9 +9,9 @@ object AuthPrefs {
 
     fun saveToken(context: Context, token: String) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit()
-            .putString(KEY_TOKEN, token)
-            .apply()
+        prefs.edit {
+            putString(KEY_TOKEN, token)
+        }
     }
 
     fun getToken(context: Context): String? {
@@ -20,6 +21,6 @@ object AuthPrefs {
 
     fun clearToken(context: Context) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit().remove(KEY_TOKEN).apply()
+        prefs.edit { remove(KEY_TOKEN) }
     }
 }

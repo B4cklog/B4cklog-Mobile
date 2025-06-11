@@ -1,19 +1,25 @@
 package org.b4cklog.mobile.activities
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.color.DynamicColors
 import org.b4cklog.mobile.R
 import org.b4cklog.mobile.util.AuthPrefs
 
 class WelcomeActivity : AppCompatActivity() {
-    lateinit var login_button: Button
-    lateinit var signup_button: Button
+    lateinit var loginButton: Button
+    lateinit var signUpButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        if (Build.VERSION.SDK_INT >= 31) {
+            DynamicColors.applyToActivitiesIfAvailable(application)
+        }
 
         val sharedPreferences = getSharedPreferences("settings", MODE_PRIVATE)
         val isDarkMode = sharedPreferences.getBoolean("dark_mode", false)
@@ -33,15 +39,15 @@ class WelcomeActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_welcome)
 
-        login_button = findViewById(R.id.login_button)
-        signup_button = findViewById(R.id.signup_button)
+        loginButton = findViewById(R.id.login_button)
+        signUpButton = findViewById(R.id.signup_button)
 
-        login_button.setOnClickListener{
+        loginButton.setOnClickListener{
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
 
-        signup_button.setOnClickListener{
+        signUpButton.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }

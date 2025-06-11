@@ -56,7 +56,6 @@ class ProfileFragment : Fragment() {
         recyclerCompleted = view.findViewById(R.id.recyclerCompleted)
         recyclerCompleted100 = view.findViewById(R.id.recyclerCompleted100)
 
-        // Настройка RecyclerView и адаптеров
         adapterWantToPlay = GameAdapter(emptyList(), ::onGameClick)
         adapterPlaying = GameAdapter(emptyList(), ::onGameClick)
         adapterPlayed = GameAdapter(emptyList(), ::onGameClick)
@@ -109,12 +108,12 @@ class ProfileFragment : Fragment() {
                     adapterCompleted100.updateGames(user.backlogCompleted100)
 
                 } else {
-                    Toast.makeText(requireContext(), "Ошибка загрузки профиля", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(requireContext(), "Сеть: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "${getString(R.string.network_error)}: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }

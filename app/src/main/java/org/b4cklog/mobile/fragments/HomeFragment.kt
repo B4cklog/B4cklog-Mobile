@@ -50,7 +50,7 @@ class HomeFragment : Fragment() {
         popularRecyclerView.adapter = popularAdapter
         latestRecyclerView.adapter = latestAdapter
 
-        // Кнопка полного каталога
+        // Full catalog button
 //        view.findViewById<Button>(R.id.fullCatalogButton).setOnClickListener {
 //            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_catalogFragment)
 //        }
@@ -77,7 +77,7 @@ class HomeFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<Game>>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки игр", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }

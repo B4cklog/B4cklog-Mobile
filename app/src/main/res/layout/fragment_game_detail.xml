@@ -48,7 +48,7 @@
             android:id="@+id/game_platforms"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/plaforms"
+            android:text="@string/platforms"
             android:textSize="16sp"
             android:textColor="?attr/colorOnBackground"
             android:layout_marginTop="16dp" />
@@ -76,9 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/leave_review"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/orange"
-            android:textColor="@color/black"/>
+            android:layout_marginTop="8dp"/>
 
         <TextView
             android:id="@+id/user_review_text"
@@ -120,7 +118,7 @@
                 android:src="@drawable/ic_delete"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_from_backlog"
-                app:tint="@color/orange"
+                app:tint="?attr/colorOnSurfaceVariant"
                 app:layout_constraintTop_toTopOf="@id/game_list_info"
                 app:layout_constraintBottom_toBottomOf="@id/game_list_info"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -131,9 +129,7 @@
             android:id="@+id/add_to_backlog_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
             android:text="@string/add_to_backlog"
-            android:textColor="@color/black"
             android:gravity="center"
             android:layout_marginTop="16dp" />
 

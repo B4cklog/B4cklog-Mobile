@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
             if (username.isNotEmpty() && password.isNotEmpty()) {
                 loginUser(username, password)
             } else {
-                Toast.makeText(this, "Заполните все поля", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fill_all_fields), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -45,18 +45,16 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful && response.body() != null) {
                     val token = response.body()!!.token
-
-                    Toast.makeText(this@LoginActivity, "Успешный вход!", Toast.LENGTH_SHORT).show()
                     AuthPrefs.saveToken(this@LoginActivity, token)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this@LoginActivity, "Ошибка входа", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@LoginActivity, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<AuthResponse>, t: Throwable) {
-                Toast.makeText(this@LoginActivity, "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@LoginActivity, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }

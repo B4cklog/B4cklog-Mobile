@@ -97,7 +97,7 @@ class GameDetailFragment : Fragment() {
                 }
 
                 currentListName?.let { list ->
-                    listText.text = "В списке: $list"
+                    listText.text = "${getString(R.string.in_a_list)}: $list"
                     listText.visibility = View.VISIBLE
                     removeButton.visibility = View.VISIBLE
                     removeButton.setOnClickListener {
@@ -106,16 +106,16 @@ class GameDetailFragment : Fragment() {
                                 .enqueue(object : Callback<Void> {
                                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                         if (response.isSuccessful) {
-                                            Toast.makeText(requireContext(), "Удалено из всех списков", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), getString(R.string.removed_from_all_lists), Toast.LENGTH_SHORT).show()
                                             removeButton.visibility = View.GONE
                                             listText.visibility = View.GONE
                                         } else {
-                                            Toast.makeText(requireContext(), "Ошибка удаления", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(requireContext(), getString(R.string.deleting_error), Toast.LENGTH_SHORT).show()
                                         }
                                     }
 
                                     override fun onFailure(call: Call<Void>, t: Throwable) {
-                                        Toast.makeText(requireContext(), "Ошибка сети", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(requireContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show()
                                     }
                                 })
                         }
@@ -124,7 +124,7 @@ class GameDetailFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки профиля", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -137,9 +137,9 @@ class GameDetailFragment : Fragment() {
 
                     view?.findViewById<TextView>(R.id.game_name)?.text = game.name
                     view?.findViewById<TextView>(R.id.game_summary)?.text = game.summary
-                    view?.findViewById<TextView>(R.id.game_release_date)?.text = "Дата выхода: ${game.releaseDate}"
+                    view?.findViewById<TextView>(R.id.game_release_date)?.text = "${getString(R.string.release_date)}: ${game.releaseDate}"
                     view?.findViewById<TextView>(R.id.game_platforms)?.text =
-                        "Платформы: ${game.platforms.joinToString(", ") { it.name }}"
+                        "${getString(R.string.platforms)}: ${game.platforms.joinToString(", ") { it.name }}"
 
                     val coverView = view?.findViewById<ImageView>(R.id.game_cover)
                     Glide.with(requireContext())
@@ -151,7 +151,7 @@ class GameDetailFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<Game>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки игры", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -162,12 +162,12 @@ class GameDetailFragment : Fragment() {
                 if (response.isSuccessful) {
                     val rating = response.body() ?: 0.0
                     view?.findViewById<TextView>(R.id.game_average_rating)?.text =
-                        "Средняя оценка: %.1f".format(rating)
+                        "${getString(R.string.average_rating)}: %.1f".format(rating)
                 }
             }
 
             override fun onFailure(call: Call<Double>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки рейтинга", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -182,12 +182,12 @@ class GameDetailFragment : Fragment() {
                         val review = response.body() ?: return
                         val reviewTextView = view?.findViewById<TextView>(R.id.user_review_text)
                         reviewTextView?.visibility = View.VISIBLE
-                        reviewTextView?.text = "Твоя оценка: ${review.rating}/5\nКомментарий: ${review.comment ?: "нет"}"
+                        reviewTextView?.text = "${getString(R.string.your_rating)}: ${review.rating}/5\n${getString(R.string.review)}: ${review.comment ?: "—"}"
                     }
                 }
 
                 override fun onFailure(call: Call<ReviewResponse>, t: Throwable) {
-                    // Не показываем тост специально — это не критичная информация
+                    // Nothing to do
                 }
             })
     }
@@ -210,12 +210,12 @@ class GameDetailFragment : Fragment() {
         )
 
         androidx.appcompat.app.AlertDialog.Builder(requireContext())
-            .setTitle("Добавить в список")
+            .setTitle(getString(R.string.add_to_backlog))
             .setItems(listNames) { _, which ->
                 val listKey = listKeys[which]
                 addGameToBacklog(gameId, listKey)
             }
-            .setNegativeButton("Отмена", null)
+            .setNegativeButton(getString(R.string.cancel), null)
             .show()
     }
 
@@ -229,7 +229,7 @@ class GameDetailFragment : Fragment() {
                         .enqueue(object : Callback<Void> {
                             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                                 if (response.isSuccessful) {
-                                    Toast.makeText(requireContext(), "Добавлено в список", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), getString(R.string.added_to_list), Toast.LENGTH_SHORT).show()
                                     view?.post {
                                         val removeFromBacklogButton = view?.findViewById<ImageButton>(R.id.remove_from_backlog_button)
                                         val listTextView = view?.findViewById<TextView>(R.id.game_list_info)
@@ -238,29 +238,26 @@ class GameDetailFragment : Fragment() {
                                         }
                                     }
                                 } else {
-                                    Toast.makeText(requireContext(), "Ошибка добавления", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(requireContext(), getString(R.string.addition_error), Toast.LENGTH_SHORT).show()
                                 }
                             }
 
                             override fun onFailure(call: Call<Void>, t: Throwable) {
-                                Toast.makeText(requireContext(), "Ошибка сети", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(), getString(R.string.network_error), Toast.LENGTH_SHORT).show()
                             }
                         })
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(requireContext(), "Не удалось получить профиль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun reloadFragment() {
-        // Сохраняем аргументы
         val args = bundleOf("gameId" to gameId)
-        // Убираем текущий из стека
         findNavController().popBackStack(R.id.gameDetailFragment, true)
-        // Навигируем заново
         findNavController().navigate(R.id.gameDetailFragment, args)
     }
 }

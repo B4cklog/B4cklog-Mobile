@@ -42,13 +42,13 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val user = response.body()
                     user?.let {
-                        SessionManager.userId = it.id  // Сохраняем
+                        SessionManager.userId = it.id
                     }
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                // Обработка ошибки
+                // Error handler
             }
         })
     }

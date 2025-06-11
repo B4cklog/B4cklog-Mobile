@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/editGameFragment"
         android:name="org.b4cklog.mobile.fragments.EditGameFragment"
-        android:label="Редактировать игру"
+        android:label="Edit Game Fragment"
         tools:layout="@layout/fragment_edit_game">
         <argument
             android:name="gameId"

@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.b4cklog.mobile.R
 import org.b4cklog.mobile.adapters.GameAdapter
@@ -25,6 +23,8 @@ import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.navigation.findNavController
+import androidx.core.content.edit
 
 class SearchFragment : Fragment() {
 
@@ -47,10 +47,9 @@ class SearchFragment : Fragment() {
     ): View {
         binding = FragmentSearchBinding.inflate(inflater, container, false)
 
-        // Инициализация адаптеров
         gameAdapter = GameAdapter(emptyList()) { game ->
             val bundle = bundleOf("gameId" to game.id)
-            Navigation.findNavController(requireView()).navigate(R.id.action_searchFragment_to_gameDetailFragment, bundle)
+            requireView().findNavController().navigate(R.id.action_searchFragment_to_gameDetailFragment, bundle)
         }
         historyAdapter = SearchHistoryAdapter(loadHistory()) { selectedQuery ->
             binding.searchView.setQuery(selectedQuery, false)
@@ -63,12 +62,11 @@ class SearchFragment : Fragment() {
         binding.recyclerView.adapter = gameAdapter
 
         binding.searchView.clearFocus()
-        // Подсказка и цвет текста в поисковой строке
         binding.searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
             .setHintTextColor(android.graphics.Color.DKGRAY)
-        binding.searchView.queryHint = "Искать игру"
+        binding.searchView.queryHint = getString(R.string.search_game)
 
-        // Восстановление состояния, если есть сохранённый запрос
+        // Restore state if there is a saved request
         savedInstanceState?.let {
             restoringState = true
             lastQuery = it.getString("lastQuery")
@@ -154,21 +152,19 @@ class SearchFragment : Fragment() {
 
         ApiClient.gameApi.searchGames(searchQuery).enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>, response: Response<List<Game>>) {
-                Log.d("SearchFragment", "Код ответа: ${response.code()}")
                 if (response.isSuccessful) {
                     val games = response.body() ?: emptyList()
                     gameAdapter.updateGames(games)
                     binding.progressBar.visibility = View.GONE
                     updatePlaceholder(games.isEmpty())
                 } else {
-                    Log.e("SearchFragment", "Ошибка: ${response.code()} ${response.errorBody()?.string() ?: "Нет инфо"}")
                     showErrorPlaceholder()
                 }
             }
 
             override fun onFailure(call: Call<List<Game>>, t: Throwable) {
                 binding.progressBar.visibility = View.GONE
-                Toast.makeText(context, "Ошибка сети: ${t.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${getString(R.string.network_error)}: ${t.message}", Toast.LENGTH_SHORT).show()
                 showErrorPlaceholder()
             }
         })
@@ -183,7 +179,7 @@ class SearchFragment : Fragment() {
     private fun updatePlaceholder(isEmpty: Boolean) {
         binding.recyclerView.visibility = if (isEmpty) View.GONE else View.VISIBLE
         binding.placeholderLayout.visibility = if (isEmpty) View.VISIBLE else View.GONE
-        binding.placeholderText.text = "Нет результатов"
+        binding.placeholderText.text = getString(R.string.no_results)
         binding.retryButton.visibility = View.GONE
     }
 
@@ -191,7 +187,7 @@ class SearchFragment : Fragment() {
         binding.progressBar.visibility = View.GONE
         binding.recyclerView.visibility = View.GONE
         binding.placeholderLayout.visibility = View.VISIBLE
-        binding.placeholderText.text = "Ошибка загрузки данных"
+        binding.placeholderText.text = getString(R.string.getting_data_error)
         binding.retryButton.visibility = View.VISIBLE
     }
 
@@ -213,7 +209,7 @@ class SearchFragment : Fragment() {
             jsonArray.put(item)
         }
 
-        prefs.edit().putString(HISTORY_PREF, jsonArray.toString()).apply()
+        prefs.edit { putString(HISTORY_PREF, jsonArray.toString()) }
     }
 
     private fun loadHistory(): List<String> {
@@ -230,7 +226,7 @@ class SearchFragment : Fragment() {
 
     private fun clearHistory() {
         val prefs = requireContext().getSharedPreferences("search_prefs", Context.MODE_PRIVATE)
-        prefs.edit().remove(HISTORY_PREF).apply()
+        prefs.edit { remove(HISTORY_PREF) }
     }
 
     private fun showHistory() {

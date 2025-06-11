@@ -42,7 +42,7 @@ class AccountSettingsFragment : Fragment() {
             if (newEmail.isNotBlank()) {
                 updateEmail(newEmail)
             } else {
-                Toast.makeText(context, "Введите новый email", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.enter_new_email), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -51,7 +51,7 @@ class AccountSettingsFragment : Fragment() {
             if (newPassword.isNotBlank()) {
                 updatePassword(newPassword)
             } else {
-                Toast.makeText(context, "Введите новый пароль", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.enter_new_password), Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -65,12 +65,12 @@ class AccountSettingsFragment : Fragment() {
                     val user = response.body()
                     emailEditText.setText(user?.email ?: "")
                 } else {
-                    Toast.makeText(context, "Ошибка загрузки профиля", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Ошибка сети: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${getString(R.string.network_error)}: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -80,12 +80,12 @@ class AccountSettingsFragment : Fragment() {
             try {
                 val response = ApiClient.profileApi.updateEmail(newEmail)
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Email обновлён", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.email_updated), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Ошибка обновления: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${getString(R.string.update_error)}: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Сетевая ошибка: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${getString(R.string.network_error)}: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -95,12 +95,12 @@ class AccountSettingsFragment : Fragment() {
             try {
                 val response = ApiClient.profileApi.updatePassword(newPassword)
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Пароль обновлён", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.password_updated), Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(context, "Ошибка обновления: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${getString(R.string.update_error)}: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
-                Toast.makeText(context, "Сетевая ошибка: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${getString(R.string.network_error)}: ${e.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         }
     }

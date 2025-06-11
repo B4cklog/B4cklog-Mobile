@@ -12,7 +12,6 @@ import org.b4cklog.mobile.models.Game
 import org.b4cklog.mobile.models.Platform
 import org.b4cklog.mobile.models.User
 import org.b4cklog.mobile.network.ApiClient
-import org.b4cklog.mobile.util.AuthPrefs
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -50,7 +49,7 @@ class EditGameFragment : Fragment() {
                 val user = response.body()
                 isAdmin = user?.isAdmin == true
                 if (!isAdmin) {
-                    Toast.makeText(context, "Доступ только для администраторов", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.admin_access_only), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                     return
                 }
@@ -61,7 +60,7 @@ class EditGameFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -97,7 +96,7 @@ class EditGameFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<List<Platform>>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки платформ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -111,7 +110,6 @@ class EditGameFragment : Fragment() {
                 coverEditText.setText(game.cover)
                 releaseDateEditText.setText(game.releaseDate)
 
-                // Отметим выбранные платформы
                 selectedPlatforms.addAll(game.platforms)
                 for (i in 0 until platformContainer.childCount) {
                     val checkbox = platformContainer.getChildAt(i) as CheckBox
@@ -123,7 +121,7 @@ class EditGameFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<Game>, t: Throwable) {
-                Toast.makeText(context, "Ошибка загрузки игры", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -132,15 +130,13 @@ class EditGameFragment : Fragment() {
         if (nameEditText.text.isBlank() || summaryEditText.text.isBlank() ||
             coverEditText.text.isBlank() || releaseDateEditText.text.isBlank() ||
             selectedPlatforms.isEmpty()) {
-            Toast.makeText(context, "Заполните все поля и выберите платформы", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.fill_all_fields_and_platforms), Toast.LENGTH_SHORT).show()
             return false
         }
         return true
     }
 
     private fun createGame() {
-        val token = AuthPrefs.getToken(requireContext()) ?: return
-
         val game = Game(
             id = 0,
             name = nameEditText.text.toString(),
@@ -153,22 +149,20 @@ class EditGameFragment : Fragment() {
         ApiClient.gameApi.addGame(game).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>, response: Response<Game>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Игра добавлена", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.game_added), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } else {
-                    Toast.makeText(context, "Ошибка: ${response.code()}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "${getString(R.string.error)}: ${response.code()}", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Game>, t: Throwable) {
-                Toast.makeText(context, "Сеть: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "${getString(R.string.network_error)}: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
     private fun updateGame() {
-        val token = AuthPrefs.getToken(requireContext()) ?: return
-
         val game = Game(
             id = gameId!!,
             name = nameEditText.text.toString(),
@@ -181,15 +175,15 @@ class EditGameFragment : Fragment() {
         ApiClient.gameApi.updateGame(game).enqueue(object : Callback<Game> {
             override fun onResponse(call: Call<Game>, response: Response<Game>) {
                 if (response.isSuccessful) {
-                    Toast.makeText(context, "Игра обновлена", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.game_updated), Toast.LENGTH_SHORT).show()
                     findNavController().popBackStack()
                 } else {
-                    Toast.makeText(context, "Ошибка при обновлении", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.update_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onFailure(call: Call<Game>, t: Throwable) {
-                Toast.makeText(context, "Ошибка сети", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.network_error), Toast.LENGTH_SHORT).show()
             }
         })
     }
