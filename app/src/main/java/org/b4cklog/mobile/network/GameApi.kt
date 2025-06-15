@@ -27,4 +27,10 @@ interface GameApi {
 
     @GET("games/search")
     fun searchGames(@Query("q") query: String): Call<List<Game>>
+
+    @GET("/games/popular")
+    fun getPopularGames(): Call<List<Game>>
+
+    @GET("/games/latest")
+    fun getLatestGames(): Call<List<Game>>
 }

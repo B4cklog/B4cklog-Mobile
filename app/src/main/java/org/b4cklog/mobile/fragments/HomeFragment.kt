@@ -55,27 +55,36 @@ class HomeFragment : Fragment() {
 //            Navigation.findNavController(view).navigate(R.id.action_homeFragment_to_catalogFragment)
 //        }
 
-        loadGames()
+        loadPopularGames()
+        loadLatestGames()
 
         return view
     }
 
-    private fun loadGames() {
+    private fun loadPopularGames() {
         val api = ApiClient.gameApi
-
-        api.getAllGames().enqueue(object : Callback<List<Game>> {
+        api.getPopularGames().enqueue(object : Callback<List<Game>> {
             override fun onResponse(call: Call<List<Game>>, response: Response<List<Game>>) {
                 if (response.isSuccessful) {
                     val games = response.body() ?: emptyList()
-
-                    val popularGames = games.take(10)
-                    val latestGames = games.sortedByDescending { it.releaseDate }.take(10)
-
-                    popularAdapter.updateGames(popularGames)
-                    latestAdapter.updateGames(latestGames)
+                    popularAdapter.updateGames(games)
                 }
             }
+            override fun onFailure(call: Call<List<Game>>, t: Throwable) {
+                Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 
+    private fun loadLatestGames() {
+        val api = ApiClient.gameApi
+        api.getLatestGames().enqueue(object : Callback<List<Game>> {
+            override fun onResponse(call: Call<List<Game>>, response: Response<List<Game>>) {
+                if (response.isSuccessful) {
+                    val games = response.body() ?: emptyList()
+                    latestAdapter.updateGames(games)
+                }
+            }
             override fun onFailure(call: Call<List<Game>>, t: Throwable) {
                 Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }

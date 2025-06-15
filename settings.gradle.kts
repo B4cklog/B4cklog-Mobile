@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "B4cklog2"
+rootProject.name = "client"
 include(":app")
  
