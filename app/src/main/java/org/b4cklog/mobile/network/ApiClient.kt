@@ -22,12 +22,37 @@ object ApiClient {
     }
 
     private val authInterceptor = Interceptor { chain ->
-        val requestBuilder = chain.request().newBuilder()
-        val token = AuthPrefs.getToken(appContext)
-        if (!token.isNullOrEmpty()) {
-            requestBuilder.addHeader("Authorization", "Bearer $token")
+        var request = chain.request()
+        val accessToken = AuthPrefs.getAccessToken(appContext)
+        if (!accessToken.isNullOrEmpty()) {
+            request = request.newBuilder()
+                .addHeader("Authorization", "Bearer $accessToken")
+                .build()
         }
-        chain.proceed(requestBuilder.build())
+        var response = chain.proceed(request)
+        if (response.code == 401) {
+            response.close()
+            val refreshToken = AuthPrefs.getRefreshToken(appContext)
+            if (!refreshToken.isNullOrEmpty()) {
+                try {
+                    val refreshResponse = authApi.refresh(RefreshRequest(refreshToken)).execute()
+                    if (refreshResponse.isSuccessful) {
+                        val newAccessToken = refreshResponse.body()?.accessToken
+                        val newRefreshToken = refreshResponse.body()?.refreshToken
+                        if (!newAccessToken.isNullOrEmpty() && !newRefreshToken.isNullOrEmpty()) {
+                            AuthPrefs.saveTokens(appContext, newAccessToken, newRefreshToken)
+                            val newRequest = request.newBuilder()
+                                .removeHeader("Authorization")
+                                .addHeader("Authorization", "Bearer $newAccessToken")
+                                .build()
+                            return@Interceptor chain.proceed(newRequest)
+                        }
+                    }
+                } catch (_: Exception) {}
+            }
+            AuthPrefs.clearTokens(appContext)
+        }
+        response
     }
 
     private val client = OkHttpClient.Builder()

@@ -14,6 +14,15 @@ data class RegisterRequest (
     val age: Int
 )
 
+data class RefreshRequest(
+    val refreshToken: String
+)
+
+data class LogoutRequest(
+    val refreshToken: String
+)
+
 data class AuthResponse (
-    val token: String
+    val accessToken: String,
+    val refreshToken: String
 )

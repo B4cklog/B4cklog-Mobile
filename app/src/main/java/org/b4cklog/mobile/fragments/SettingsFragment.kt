@@ -12,9 +12,13 @@ import androidx.fragment.app.Fragment
 import org.b4cklog.mobile.R
 import org.b4cklog.mobile.activities.WelcomeActivity
 import org.b4cklog.mobile.util.AuthPrefs
-import androidx.navigation.findNavController
 import androidx.core.content.edit
 import androidx.navigation.Navigation
+import org.b4cklog.mobile.network.ApiClient
+import org.b4cklog.mobile.network.LogoutRequest
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class SettingsFragment : Fragment() {
 
@@ -48,11 +52,28 @@ class SettingsFragment : Fragment() {
 
         val logoutButton = view.findViewById<View>(R.id.logout)
         logoutButton.setOnClickListener {
-            AuthPrefs.clearToken(requireContext())
-
-            val intent = Intent(requireContext(), WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
+            val refreshToken = AuthPrefs.getRefreshToken(requireContext())
+            if (refreshToken != null) {
+                ApiClient.authApi.logout(LogoutRequest(refreshToken)).enqueue(object : Callback<Void> {
+                    override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                        AuthPrefs.clearTokens(requireContext())
+                        val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+                    override fun onFailure(call: Call<Void>, t: Throwable) {
+                        AuthPrefs.clearTokens(requireContext())
+                        val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    }
+                })
+            } else {
+                AuthPrefs.clearTokens(requireContext())
+                val intent = Intent(requireContext(), WelcomeActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+            }
         }
 
         return view

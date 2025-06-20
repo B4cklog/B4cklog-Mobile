@@ -62,10 +62,10 @@ class SignUpActivity : AppCompatActivity() {
         val call = ApiClient.authApi.register(RegisterRequest(username, email, password, firstName, lastName, age))
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
-                if (response.isSuccessful) {
-                    val token = response.body()!!.token
-
-                    AuthPrefs.saveToken(this@SignUpActivity, token)
+                if (response.isSuccessful && response.body() != null) {
+                    val accessToken = response.body()!!.accessToken
+                    val refreshToken = response.body()!!.refreshToken
+                    AuthPrefs.saveTokens(this@SignUpActivity, accessToken, refreshToken)
                     val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {

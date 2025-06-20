@@ -29,8 +29,9 @@ class WelcomeActivity : AppCompatActivity() {
             else AppCompatDelegate.MODE_NIGHT_NO
         )
 
-        val token = AuthPrefs.getToken(this)
-        if (!token.isNullOrEmpty()) {
+        val accessToken = AuthPrefs.getAccessToken(this)
+        val refreshToken = AuthPrefs.getRefreshToken(this)
+        if (!accessToken.isNullOrEmpty() && !refreshToken.isNullOrEmpty()) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

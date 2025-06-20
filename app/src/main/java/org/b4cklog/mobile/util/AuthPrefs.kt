@@ -5,22 +5,33 @@ import androidx.core.content.edit
 
 object AuthPrefs {
     private const val PREFS_NAME = "auth_prefs"
-    private const val KEY_TOKEN = "token"
+    private const val KEY_ACCESS_TOKEN = "accessToken"
+    private const val KEY_REFRESH_TOKEN = "refreshToken"
 
-    fun saveToken(context: Context, token: String) {
+    fun saveTokens(context: Context, accessToken: String, refreshToken: String) {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         prefs.edit {
-            putString(KEY_TOKEN, token)
+            putString(KEY_ACCESS_TOKEN, accessToken)
+            putString(KEY_REFRESH_TOKEN, refreshToken)
         }
     }
 
-    fun getToken(context: Context): String? {
+    fun getAccessToken(context: Context): String? {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        return prefs.getString(KEY_TOKEN, null)
+        return prefs.getString(KEY_ACCESS_TOKEN, null)
     }
 
-    fun clearToken(context: Context) {
+    fun getRefreshToken(context: Context): String? {
         val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        prefs.edit { remove(KEY_TOKEN) }
+        return prefs.getString(KEY_REFRESH_TOKEN, null)
+    }
+
+    fun clearTokens(context: Context) {
+        val prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        prefs.edit {
+            remove(KEY_ACCESS_TOKEN)
+            remove(KEY_REFRESH_TOKEN)
+        }
     }
 }
+

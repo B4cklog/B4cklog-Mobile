@@ -44,8 +44,9 @@ class LoginActivity : AppCompatActivity() {
         call.enqueue(object: Callback<AuthResponse> {
             override fun onResponse(call: Call<AuthResponse>, response: Response<AuthResponse>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val token = response.body()!!.token
-                    AuthPrefs.saveToken(this@LoginActivity, token)
+                    val accessToken = response.body()!!.accessToken
+                    val refreshToken = response.body()!!.refreshToken
+                    AuthPrefs.saveTokens(this@LoginActivity, accessToken, refreshToken)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {
