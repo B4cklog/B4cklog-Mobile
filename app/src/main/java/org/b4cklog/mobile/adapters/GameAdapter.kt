@@ -23,7 +23,7 @@ class GameAdapter(
             nameText.text = game.name
 
             Glide.with(itemView.context)
-                .load(game.cover)
+                .load(game.getCoverUrl())
                 .placeholder(R.drawable.cover_placeholder)
                 .error(R.drawable.cover_placeholder)
                 .into(coverImage)

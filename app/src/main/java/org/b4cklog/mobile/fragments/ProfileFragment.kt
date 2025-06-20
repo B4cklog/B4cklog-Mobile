@@ -18,6 +18,7 @@ import org.b4cklog.mobile.R
 import org.b4cklog.mobile.adapters.GameAdapter
 import org.b4cklog.mobile.models.Game
 import org.b4cklog.mobile.models.User
+import org.b4cklog.mobile.models.UserProfileResponse
 import org.b4cklog.mobile.network.ApiClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -85,34 +86,29 @@ class ProfileFragment : Fragment() {
     }
 
     private fun loadProfile() {
-        ApiClient.profileApi.getUserProfile().enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        ApiClient.profileApi.getUserProfileWithGames().enqueue(object : Callback<UserProfileResponse> {
+            override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val user = response.body()!!
+                    val profileResponse = response.body()!!
+                    val user = profileResponse.user
+                    val games = profileResponse.games
+                    
                     userName.text = user.username
                     userFullNameAge.text = "${user.firstName} ${user.lastName}, ${user.age}"
                     userEmail.text = user.email
 
-                    val editButton = view?.findViewById<Button>(R.id.edit_game_button)
-                    if (user.isAdmin) {
-                        editButton?.visibility = View.VISIBLE
-                        editButton?.setOnClickListener {
-                            findNavController().navigate(R.id.action_profileFragment_to_editGameFragment)
-                        }
-                    }
-
-                    adapterWantToPlay.updateGames(user.backlogWantToPlay)
-                    adapterPlaying.updateGames(user.backlogPlaying)
-                    adapterPlayed.updateGames(user.backlogPlayed)
-                    adapterCompleted.updateGames(user.backlogCompleted)
-                    adapterCompleted100.updateGames(user.backlogCompleted100)
+                    adapterWantToPlay.updateGames(games["want_to_play"] ?: emptyList())
+                    adapterPlaying.updateGames(games["playing"] ?: emptyList())
+                    adapterPlayed.updateGames(games["played"] ?: emptyList())
+                    adapterCompleted.updateGames(games["completed"] ?: emptyList())
+                    adapterCompleted100.updateGames(games["completed_100"] ?: emptyList())
 
                 } else {
                     Toast.makeText(requireContext(), getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
                 Toast.makeText(requireContext(), "${getString(R.string.network_error)}: ${t.localizedMessage}", Toast.LENGTH_SHORT).show()
             }
         })

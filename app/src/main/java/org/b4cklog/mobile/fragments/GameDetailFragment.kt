@@ -18,6 +18,7 @@ import org.b4cklog.mobile.network.ApiClient
 import org.b4cklog.mobile.util.SessionManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.b4cklog.mobile.models.UserProfileResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,28 +72,20 @@ class GameDetailFragment : Fragment() {
     }
 
     private fun loadCurrentUserAndCheckList(gameId: Int, removeButton: ImageButton, listText: TextView) {
-        ApiClient.profileApi.getUserProfile().enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
+        ApiClient.profileApi.getUserProfileWithGames().enqueue(object : Callback<UserProfileResponse> {
+            override fun onResponse(call: Call<UserProfileResponse>, response: Response<UserProfileResponse>) {
                 if (!response.isSuccessful) return
-                val user = response.body() ?: return
+                val profileResponse = response.body() ?: return
+                val user = profileResponse.user
+                val games = profileResponse.games
                 currentUserId = user.id
 
-                val editButton = view?.findViewById<Button>(R.id.edit_game_button)
-                if (user.isAdmin) {
-                    editButton?.visibility = View.VISIBLE
-                    editButton?.setOnClickListener {
-                        val bundle = bundleOf("gameId" to gameId)
-                        findNavController().navigate(R.id.action_gameDetailFragment_to_editGameFragment, bundle)
-                    }
-                }
-
-
                 currentListName = when {
-                    user.backlogWantToPlay.any { it.id == gameId } -> getString(R.string.want_to_play)
-                    user.backlogPlaying.any { it.id == gameId } -> getString(R.string.playing)
-                    user.backlogPlayed.any { it.id == gameId } -> getString(R.string.played)
-                    user.backlogCompleted.any { it.id == gameId } -> getString(R.string.completed)
-                    user.backlogCompleted100.any { it.id == gameId } -> getString(R.string.completed_100)
+                    games["want_to_play"]?.any { it.id == gameId } == true -> getString(R.string.want_to_play)
+                    games["playing"]?.any { it.id == gameId } == true -> getString(R.string.playing)
+                    games["played"]?.any { it.id == gameId } == true -> getString(R.string.played)
+                    games["completed"]?.any { it.id == gameId } == true -> getString(R.string.completed)
+                    games["completed_100"]?.any { it.id == gameId } == true -> getString(R.string.completed_100)
                     else -> null
                 }
 
@@ -123,7 +116,7 @@ class GameDetailFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
+            override fun onFailure(call: Call<UserProfileResponse>, t: Throwable) {
                 Toast.makeText(context, getString(R.string.getting_data_error), Toast.LENGTH_SHORT).show()
             }
         })
@@ -137,13 +130,13 @@ class GameDetailFragment : Fragment() {
 
                     view?.findViewById<TextView>(R.id.game_name)?.text = game.name
                     view?.findViewById<TextView>(R.id.game_summary)?.text = game.summary
-                    view?.findViewById<TextView>(R.id.game_release_date)?.text = "${getString(R.string.release_date)}: ${game.releaseDate}"
+                    view?.findViewById<TextView>(R.id.game_release_date)?.text = "${getString(R.string.release_date)}: ${game.getReleaseDate()}"
                     view?.findViewById<TextView>(R.id.game_platforms)?.text =
-                        "${getString(R.string.platforms)}: ${game.platforms.joinToString(", ") { it.name }}"
+                        "${getString(R.string.platforms)}: ${game.platforms?.joinToString(", ") { it.name } ?: "—"}"
 
                     val coverView = view?.findViewById<ImageView>(R.id.game_cover)
                     Glide.with(requireContext())
-                        .load(game.cover)
+                        .load(game.getCoverUrl())
                         .placeholder(R.drawable.cover_placeholder)
                         .error(R.drawable.cover_placeholder)
                         .into(coverView!!)

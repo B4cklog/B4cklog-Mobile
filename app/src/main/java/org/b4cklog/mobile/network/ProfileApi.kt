@@ -1,6 +1,7 @@
 package org.b4cklog.mobile.network
 
 import org.b4cklog.mobile.models.User
+import org.b4cklog.mobile.models.UserProfileResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.DELETE
@@ -13,6 +14,9 @@ import retrofit2.http.Query
 interface ProfileApi {
     @GET("users/profile")
     fun getUserProfile(): Call<User>
+
+    @GET("users/profile/withGames")
+    fun getUserProfileWithGames(): Call<UserProfileResponse>
 
     @POST("users/{userId}/addGameToList")
     fun addGameToList(

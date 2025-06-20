@@ -25,11 +25,6 @@
         <argument
             android:name="gameId"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_gameDetailFragment_to_editGameFragment"
-            app:destination="@id/editGameFragment"
-            app:popUpTo="@id/gameDetailFragment"
-            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -49,11 +44,6 @@
         android:name="org.b4cklog.mobile.fragments.ProfileFragment"
         android:label="Profile Fragment"
         tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment_to_editGameFragment"
-            app:destination="@id/editGameFragment"
-            app:popUpTo="@id/profileFragment"
-            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
@@ -83,16 +73,5 @@
         android:name="org.b4cklog.mobile.fragments.AccountSettingsFragment"
         android:label="Account Settings Fragment"
         tools:layout="@layout/fragment_account_settings">
-    </fragment>
-
-    <fragment
-        android:id="@+id/editGameFragment"
-        android:name="org.b4cklog.mobile.fragments.EditGameFragment"
-        android:label="Edit Game Fragment"
-        tools:layout="@layout/fragment_edit_game">
-        <argument
-            android:name="gameId"
-            app:argType="integer"
-            android:defaultValue="-1" />
     </fragment>
 </navigation>

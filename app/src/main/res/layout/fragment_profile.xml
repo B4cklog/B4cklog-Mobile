@@ -164,15 +164,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintHeight_min="127dp"
                 android:layoutDirection="ltr"/>
-
-            <Button
-                android:id="@+id/edit_game_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/add_game"
-                android:visibility="gone"
-                android:layout_marginTop="8dp"
-                />
         </LinearLayout>
     </ScrollView>
 

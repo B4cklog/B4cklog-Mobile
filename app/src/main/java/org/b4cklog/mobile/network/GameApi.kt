@@ -15,16 +15,6 @@ interface GameApi {
     @GET("/games/get/{id}")
     fun getGame(@Path("id") id: Int): Call<Game>
 
-    @POST("/games/add")
-    fun addGame(
-        @Body game: Game
-    ): Call<Game>
-
-    @POST("/games/update")
-    fun updateGame(
-        @Body game: Game
-    ): Call<Game>
-
     @GET("games/search")
     fun searchGames(@Query("q") query: String): Call<List<Game>>
 
