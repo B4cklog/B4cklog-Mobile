@@ -46,7 +46,8 @@ class LoginActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val accessToken = response.body()!!.accessToken
                     val refreshToken = response.body()!!.refreshToken
-                    AuthPrefs.saveTokens(this@LoginActivity, accessToken, refreshToken)
+                    val sessionId = response.body()!!.sessionId
+                    AuthPrefs.saveTokens(this@LoginActivity, accessToken, refreshToken, sessionId)
                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {

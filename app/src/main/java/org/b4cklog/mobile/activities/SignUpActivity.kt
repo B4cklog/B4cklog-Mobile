@@ -65,7 +65,8 @@ class SignUpActivity : AppCompatActivity() {
                 if (response.isSuccessful && response.body() != null) {
                     val accessToken = response.body()!!.accessToken
                     val refreshToken = response.body()!!.refreshToken
-                    AuthPrefs.saveTokens(this@SignUpActivity, accessToken, refreshToken)
+                    val sessionId = response.body()!!.sessionId
+                    AuthPrefs.saveTokens(this@SignUpActivity, accessToken, refreshToken, sessionId)
                     val intent = Intent(this@SignUpActivity, MainActivity::class.java)
                     startActivity(intent)
                 } else {

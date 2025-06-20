@@ -53,8 +53,9 @@ class SettingsFragment : Fragment() {
         val logoutButton = view.findViewById<View>(R.id.logout)
         logoutButton.setOnClickListener {
             val refreshToken = AuthPrefs.getRefreshToken(requireContext())
-            if (refreshToken != null) {
-                ApiClient.authApi.logout(LogoutRequest(refreshToken)).enqueue(object : Callback<Void> {
+            val sessionId = AuthPrefs.getSessionId(requireContext())
+            if (refreshToken != null && sessionId != null) {
+                ApiClient.authApi.logout(LogoutRequest(refreshToken, sessionId)).enqueue(object : Callback<Void> {
                     override fun onResponse(call: Call<Void>, response: Response<Void>) {
                         AuthPrefs.clearTokens(requireContext())
                         val intent = Intent(requireContext(), WelcomeActivity::class.java)

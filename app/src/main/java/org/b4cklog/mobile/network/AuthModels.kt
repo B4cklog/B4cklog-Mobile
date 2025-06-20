@@ -15,14 +15,17 @@ data class RegisterRequest (
 )
 
 data class RefreshRequest(
-    val refreshToken: String
+    val refreshToken: String,
+    val sessionId: String
 )
 
 data class LogoutRequest(
-    val refreshToken: String
+    val refreshToken: String,
+    val sessionId: String
 )
 
 data class AuthResponse (
     val accessToken: String,
-    val refreshToken: String
+    val refreshToken: String,
+    val sessionId: String
 )

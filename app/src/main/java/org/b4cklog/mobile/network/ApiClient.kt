@@ -33,14 +33,16 @@ object ApiClient {
         if (response.code == 401) {
             response.close()
             val refreshToken = AuthPrefs.getRefreshToken(appContext)
-            if (!refreshToken.isNullOrEmpty()) {
+            val sessionId = AuthPrefs.getSessionId(appContext)
+            if (!refreshToken.isNullOrEmpty() && !sessionId.isNullOrEmpty()) {
                 try {
-                    val refreshResponse = authApi.refresh(RefreshRequest(refreshToken)).execute()
+                    val refreshResponse = authApi.refresh(RefreshRequest(refreshToken, sessionId)).execute()
                     if (refreshResponse.isSuccessful) {
                         val newAccessToken = refreshResponse.body()?.accessToken
                         val newRefreshToken = refreshResponse.body()?.refreshToken
-                        if (!newAccessToken.isNullOrEmpty() && !newRefreshToken.isNullOrEmpty()) {
-                            AuthPrefs.saveTokens(appContext, newAccessToken, newRefreshToken)
+                        val newSessionId = refreshResponse.body()?.sessionId
+                        if (!newAccessToken.isNullOrEmpty() && !newRefreshToken.isNullOrEmpty() && !newSessionId.isNullOrEmpty()) {
+                            AuthPrefs.saveTokens(appContext, newAccessToken, newRefreshToken, newSessionId)
                             val newRequest = request.newBuilder()
                                 .removeHeader("Authorization")
                                 .addHeader("Authorization", "Bearer $newAccessToken")
