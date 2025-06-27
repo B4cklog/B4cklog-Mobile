@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
+    implementation(libs.photoview)
+    implementation(libs.subsampling.scale.image.view)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

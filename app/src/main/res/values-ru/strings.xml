@@ -71,8 +71,11 @@
     <string name="game_updated">Игра обновлена</string>
     <string name="fill_all_fields_and_platforms">Заполните все поля и выберите платформы</string>
     <string name="removed_from_all_lists">Удалено из всех списков</string>
-    <string name="addition_error">Addition error</string>
+    <string name="addition_error">Ошибка добавления</string>
     <string name="added_to_list">Добавлено в список</string>
     <string name="review_sent">Отзыв отправлен</string>
     <string name="user_is_not_authorized">Пользователь не авторизован</string>
+    <string name="screenshot">Скриншот</string>
+    <string name="screenshots">Скриншоты</string>
+    <string name="genres">Жанры</string>
 </resources>

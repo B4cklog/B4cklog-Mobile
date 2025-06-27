@@ -22,6 +22,15 @@ import org.b4cklog.mobile.models.UserProfileResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import org.b4cklog.mobile.adapters.ScreenshotAdapter
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import androidx.viewpager2.widget.ViewPager2
+import org.b4cklog.mobile.adapters.ScreenshotPagerAdapter
+import org.b4cklog.mobile.models.Screenshot
 
 class GameDetailFragment : Fragment() {
     private var currentListName: String? = null
@@ -69,6 +78,9 @@ class GameDetailFragment : Fragment() {
         }
 
         loadCurrentUserAndCheckList(gameId, removeFromBacklogButton, listTextView)
+
+        val screenshotsRecycler = view.findViewById<RecyclerView>(R.id.game_screenshots_recycler)
+        screenshotsRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun loadCurrentUserAndCheckList(gameId: Int, removeButton: ImageButton, listText: TextView) {
@@ -133,6 +145,8 @@ class GameDetailFragment : Fragment() {
                     view?.findViewById<TextView>(R.id.game_release_date)?.text = "${getString(R.string.release_date)}: ${game.getReleaseDate()}"
                     view?.findViewById<TextView>(R.id.game_platforms)?.text =
                         "${getString(R.string.platforms)}: ${game.platforms?.joinToString(", ") { it.name } ?: "—"}"
+                    view?.findViewById<TextView>(R.id.game_genres)?.text =
+                        "${getString(R.string.genres)}: " + (game.genres?.joinToString(", ") { it.name } ?: "—")
 
                     val coverView = view?.findViewById<ImageView>(R.id.game_cover)
                     Glide.with(requireContext())
@@ -140,6 +154,19 @@ class GameDetailFragment : Fragment() {
                         .placeholder(R.drawable.cover_placeholder)
                         .error(R.drawable.cover_placeholder)
                         .into(coverView!!)
+
+                    val screenshotsRecycler = view?.findViewById<RecyclerView>(R.id.game_screenshots_recycler)
+                    if (game.screenshots != null && game.screenshots.isNotEmpty()) {
+                        val adapter = ScreenshotAdapter(game.screenshots) { screenshot ->
+                            showScreenshotDialog(game.screenshots, game.screenshots.indexOf(screenshot))
+                        }
+                        screenshotsRecycler?.adapter = adapter
+                        screenshotsRecycler?.visibility = View.VISIBLE
+                        view?.findViewById<TextView>(R.id.game_screenshots_label)?.visibility = View.VISIBLE
+                    } else {
+                        screenshotsRecycler?.visibility = View.GONE
+                        view?.findViewById<TextView>(R.id.game_screenshots_label)?.visibility = View.GONE
+                    }
                 }
             }
 
@@ -252,5 +279,59 @@ class GameDetailFragment : Fragment() {
         val args = bundleOf("gameId" to gameId)
         findNavController().popBackStack(R.id.gameDetailFragment, true)
         findNavController().navigate(R.id.gameDetailFragment, args)
+    }
+
+    private fun showScreenshotDialog(screenshots: List<Screenshot>, startIndex: Int) {
+        val dialog = Dialog(requireContext(), android.R.style.Theme_Black_NoTitleBar_Fullscreen)
+        dialog.setContentView(R.layout.dialog_fullscreen_image)
+        val window = dialog.window
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
+        
+        val viewPager = dialog.findViewById<ViewPager2>(R.id.fullscreen_viewpager)
+        
+        // Add touch listener to dialog root to handle pinch-to-zoom
+        val dialogRoot = dialog.findViewById<View>(android.R.id.content)
+        dialogRoot.setOnTouchListener { v, event ->
+            // If we have multiple pointers (pinch gesture), disable ViewPager2
+            if (event.pointerCount > 1) {
+                viewPager.isUserInputEnabled = false
+                // Re-enable after pinch completes
+                viewPager.postDelayed({
+                    viewPager.isUserInputEnabled = true
+                }, 1000)
+            }
+            false
+        }
+        
+        viewPager.isUserInputEnabled = true // Enable native ViewPager2 swipe
+        val adapter = ScreenshotPagerAdapter(screenshots, { dialog.dismiss() }, viewPager)
+        viewPager.adapter = adapter
+        viewPager.setCurrentItem(startIndex, false)
+        
+        val indicator = dialog.findViewById<TextView>(R.id.fullscreen_indicator)
+        indicator.text = "${startIndex + 1}/${screenshots.size}"
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                indicator.text = "${position + 1}/${screenshots.size}"
+            }
+            
+            override fun onPageScrollStateChanged(state: Int) {
+                // Reset any dragged state when scrolling between pages
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    // Find current PhotoView and reset its state
+                    val currentItem = viewPager.getChildAt(0)
+                    if (currentItem is androidx.recyclerview.widget.RecyclerView) {
+                        val currentViewHolder = currentItem.findViewHolderForAdapterPosition(viewPager.currentItem)
+                        if (currentViewHolder is ScreenshotPagerAdapter.ViewHolder) {
+                            currentViewHolder.imageView.translationY = 0f
+                            currentViewHolder.imageView.translationX = 0f
+                            currentViewHolder.imageView.alpha = 1f
+                        }
+                    }
+                }
+            }
+        })
+        dialog.show()
     }
 }

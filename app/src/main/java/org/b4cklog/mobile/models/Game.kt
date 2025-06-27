@@ -9,7 +9,9 @@ data class Game(
     val cover: Cover? = null,
     @SerializedName("first_release_date")
     val firstReleaseDate: Long? = null,
-    val platforms: List<Platform>? = null
+    val platforms: List<Platform>? = null,
+    val genres: List<Genre>? = null,
+    val screenshots: List<Screenshot>? = null
 ) {
     fun getCoverUrl(): String {
         return cover?.getCoverUrl() ?: ""
@@ -38,3 +40,13 @@ data class Cover(
         }
     }
 }
+
+data class Genre(
+    val id: Int,
+    val name: String
+)
+
+data class Screenshot(
+    val id: Int,
+    val url: String
+)
